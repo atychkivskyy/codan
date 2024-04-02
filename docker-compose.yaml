@@ -2,17 +2,14 @@ version: '3.3'
 services:
   mosquitto:
     image: eclipse-mosquitto:1.6
+    container_name: mosquitto
     ports:
-      - "6000-6005:1883"
-      - "9000-9005:9001"
+      - "1883:1883"
+      - "9001:9001"
     volumes:
       - ./mosquitto.conf:/mosquitto/config/mosquitto.conf
       - mosquitto_data:/var/lib/mosquitto
       - ./mosquitto.log:/var/log/mosquitto/mosquitto.log
-    deploy:
-      mode: replicated
-      replicas: 2
-      endpoint_mode: dnsrr
 
 volumes:
   mosquitto_data: 
