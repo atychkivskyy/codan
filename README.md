@@ -18,7 +18,7 @@
 El objetivo de este proyecto es implementar una red orientada a servicios, que no alcance la
 congestión de manera estructural, y que por lo tanto sea capaz de gestionar todas las peticiones
 que le llegan desde una plataforma de sensores hardware. La red se orientará a un paradigma
-de encaminamiento de publicación/suscripción, deberá ser fiable o persistente, y deberá incluir
+de encaminamiento de publicación/suscripción, deberá ser fiable o persistente, y deberá incluir al
 menos cuatro servicios.
 
 ![schema](./doc/img/image.png)
