@@ -1,6 +1,6 @@
 #!/bin/bash
 
-touch mosquito.log
+touch ./mosquitto/mosquitto.log
 
 docker compose ../docker-compose.yml up -d
 
