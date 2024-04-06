@@ -1,21 +1,23 @@
 version: '3.3'
 services:
   mosquitto:
-    image: eclipse-mosquitto:1.6
+    image: eclipse-mosquitto
     container_name: mosquitto
     ports:
       - "1883:1883"
       - "9001:9001"
+    restart: always
     volumes:
-      - ./config/mosquitto.conf:/mosquitto/config/mosquitto.conf
+      - ./mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf
       - mosquitto_data:/var/lib/mosquitto
-      - ./mosquitto.log:/var/log/mosquitto/mosquitto.log
-      
-  middleware:
+      - ./mosquitto/mosquitto.log:/var/log/mosquitto/mosquitto.log
+  sensor-middleware:
     build: ./sensor-middleware
     container_name: sensor-middleware
     ports:
       - "3000:3000"
-
+    restart: always
+    depends_on:
+      - mosquitto
 volumes:
   mosquitto_data: 
