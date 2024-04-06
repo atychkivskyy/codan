@@ -5,17 +5,25 @@ function test(req, res) {
 }
 
 function retrieveTemperature(req, res) {
-    const temperatureData = req.body;
-    mqttClient.publish('sensor/temperature', JSON.stringify(temperatureData));
+    mqttClient.publish('sensor/temperature', JSON.stringify(req.body));
     return res.status(200).send("Temperature data received");
 }
 
 function retrieveHumidity(req, res) {
-    const humidityData = req.body;
-    mqttClient.publish('sensor/humidity', JSON.stringify(humidityData));
+    mqttClient.publish('sensor/humidity', JSON.stringify(req.body));
     return res.status(200).send("Humidity data received");
 }
 
+function retrieveCO2(req, res) {
+    mqttClient.publish('sensor/co2', JSON.stringify(req.body));
+    return res.status(200).send("CO2 data received");
+}
+
+function retrieveOrganic(req, res) {
+    mqttClient.publish('sensor/organic', JSON.stringify(req.body));
+    return res.status(200).send("Organic data received");
+}
+
 module.exports = {
-    test, retrieveTemperature, retrieveHumidity
+    test, retrieveTemperature, retrieveHumidity, retrieveCO2, retrieveOrganic
 }

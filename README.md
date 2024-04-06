@@ -27,19 +27,21 @@ menos cuatro servicios.
 
 ### API Reference
 
-| Ruta | Metodo | Respuesta |
-|--------|------------------|--- |
-| /test       |  GET  | Hello from Sensor Controller |
-| /temperature       |    POST         |  200 OK
-| /humidity       |       POST       |  200 OK |
+| Ruta         | Metodo | Respuesta                    |
+|--------------|--------|------------------------------|
+| /test        | GET    | Hello from Sensor Controller |
+| /temperature | POST   | 200 OK                       |
+| /humidity    | POST   | 200 OK                       |
+| /co2         | POST   | 200 OK                       |
+| /organic     | POST   | 200 OK                       |
 
 ### Variables de entorno
 
-| Nombre | Valor por defecto |
-|--------|------------------|
-| PORT       |  3000  |
-| MOSQUITTO   | topico de mosquitto    |
-|   ...  |        ...      |
+| Nombre    | Valor por defecto   |
+|-----------|---------------------|
+| PORT      | 3000                |
+| MOSQUITTO | topico de mosquitto |
+| ...       | ...                 |
 
 ## Documentación
 
