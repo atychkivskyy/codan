@@ -2,17 +2,32 @@ version: '3.3'
 services:
   mosquitto:
     image: eclipse-mosquitto
+    container_name: mosquitto
     ports:
-      - "6000-6005:1883"
-      - "9000-9005:9001"
+      - "1883:1883"
+      - "9001:9001"
+    restart: always
     volumes:
       - ./mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf
       - mosquitto_data:/var/lib/mosquitto
       - ./mosquitto/mosquitto.log:/var/log/mosquitto/mosquitto.log
+      
+  sensor-middleware:
+    build: ./sensor-middleware
     deploy:
-      mode: replicated
-      replicas: 2
-      endpoint_mode: dnsrr
+      replicas: 4
+    depends_on:
+      - mosquitto
+
+  nginx:
+    image: nginx:alpine
+    container_name: nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./proxy/nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - sensor-middleware
 
 volumes:
   mosquitto_data: 
