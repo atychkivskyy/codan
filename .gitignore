@@ -47,7 +47,7 @@ yarn-error.log
 .history/*
 
 # Miscellaneous
-sensor-middleware/node_modules/
+*/node_modules/
 .sass-cache/
 /connect.lock
 /libpeerconnection.log
