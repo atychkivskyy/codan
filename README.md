@@ -3,6 +3,7 @@
 [![License](https://img.shields.io/badge/license-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache)
 
 ## Tabla de contenidos
+
 - [Tabla de Contenidos](#tabla-de-contenidos)
 - [Objetivos](#objetivos)
 - [Sensor Middleware](#sensor-middleware)
@@ -11,7 +12,6 @@
 - [Documentación](#documentación)
     - [Docker compose doc](#docker-compose-doc)
     - [Additional doc](#additional-doc)
-
 
 ## Objetivos
 
@@ -27,13 +27,10 @@ menos cuatro servicios.
 
 ### API Reference
 
-| Ruta         | Metodo | Respuesta                    |
-|--------------|--------|------------------------------|
-| /test        | GET    | Hello from Sensor Controller |
-| /temperature | POST   | 200 OK                       |
-| /humidity    | POST   | 200 OK                       |
-| /co2         | POST   | 200 OK                       |
-| /organic     | POST   | 200 OK                       |
+| Ruta  | Metodo | Respuesta                    |
+|-------|--------|------------------------------|
+| /test | GET    | Hello from Sensor Controller |
+| /data | POST   | 200 OK                       |
 
 ### Variables de entorno
 
@@ -45,7 +42,7 @@ menos cuatro servicios.
 
 ## Documentación
 
-Seccion con referencias,  y comandos 
+Seccion con referencias, y comandos
 
 ### Docker compose doc
 
@@ -53,10 +50,12 @@ Seccion con referencias,  y comandos
 # Run the test infrastrucuture
 docker compose up -d
 ```
+
 ```shell
 # Run the replicated infrastructure
 docker compose -f docker-compose.replicated.yaml up -d
 ```
+
 ### Additional doc
 
 Usefull commands for mqtt testing
