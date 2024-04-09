@@ -7,16 +7,16 @@ function test(req, res) {
 function retrieveData(req, res) {
     let timestamp = new Date();
     let temperature = {
-        id: req.body.sensor_id, temperature: req.body.temperature, time: timestamp
+        sensor_id: req.body.sensor_id, temperature: req.body.temperature, time: timestamp
     }
     let humidity = {
-        id: req.body.sensor_id, humidity: req.body.humidity, time: timestamp
+        sensor_id: req.body.sensor_id, humidity: req.body.humidity, time: timestamp
     }
     let co2 = {
-        id: req.body.sensor_id, co2: req.body.co2, time: timestamp
+        sensor_id: req.body.sensor_id, co2: req.body.co2, time: timestamp
     }
     let volatile = {
-        id: req.body.sensor_id, volatile: req.body.volatile, time: timestamp
+        sensor_id: req.body.sensor_id, volatile: req.body.volatile, time: timestamp
     }
     mqttClient.publish('sensor/temperature', JSON.stringify(temperature));
     mqttClient.publish('sensor/humidity', JSON.stringify(humidity));
