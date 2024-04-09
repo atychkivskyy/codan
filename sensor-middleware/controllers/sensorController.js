@@ -1,51 +1,30 @@
 const mqttClient = require('../services/mqttService');
-let timestamp = new Date().getTime();
-
 
 function test(req, res) {
     return res.status(200).send("Hello from Sensor Controller");
 }
 
-function retrieveTemperature(req, res) {
-    let temperature={
-        id: req.body.id_nodo,
-        temperature: req.body.temperatura,
-        time:timestamp
+function retrieveData(req, res) {
+    let timestamp = new Date();
+    let temperature = {
+        id: req.body.sensor_id, temperature: req.body.temperature, time: timestamp
+    }
+    let humidity = {
+        id: req.body.sensor_id, humidity: req.body.humidity, time: timestamp
+    }
+    let co2 = {
+        id: req.body.sensor_id, co2: req.body.co2, time: timestamp
+    }
+    let volatile = {
+        id: req.body.sensor_id, volatile: req.body.volatile, time: timestamp
     }
     mqttClient.publish('sensor/temperature', JSON.stringify(temperature));
-    return res.status(200).send("Temperature data received");
-}
-
-function retrieveHumidity(req, res) {
-    let humidity={
-        id: req.body.id_nodo,
-        humedad: req.body.humedad,
-        time:timestamp
-    }
     mqttClient.publish('sensor/humidity', JSON.stringify(humidity));
-    return res.status(200).send("Humidity data received");
-}
-
-function retrieveCO2(req, res) {
-    let co2={
-        id: req.body.id_nodo,
-        temperature: req.body.co2,
-        time:timestamp
-    }
     mqttClient.publish('sensor/co2', JSON.stringify(co2));
-    return res.status(200).send("CO2 data received");
-}
-
-function retrieveVolatiles(req, res) {
-    let volatil={
-        id: req.body.id_nodo,
-        volatil: req.body.volatiles,
-        time:timestamp
-    }
-    mqttClient.publish('sensor/organic', JSON.stringify(volatil));
-    return res.status(200).send("Organic data received");
+    mqttClient.publish('sensor/volatile', JSON.stringify(volatile));
+    return res.status(200).send("Data received");
 }
 
 module.exports = {
-    test, retrieveTemperature, retrieveHumidity, retrieveCO2, retrieveVolatiles
+    test, retrieveData
 }
