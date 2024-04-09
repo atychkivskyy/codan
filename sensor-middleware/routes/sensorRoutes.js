@@ -7,7 +7,7 @@ SensorRoutes.get("/test", sensorController.test);
 SensorRoutes.post("/temperature", sensorController.retrieveTemperature);
 SensorRoutes.post("/humidity", sensorController.retrieveHumidity);
 SensorRoutes.post("/co2", sensorController.retrieveCO2);
-SensorRoutes.post("/organic", sensorController.retrieveOrganic);
+SensorRoutes.post("/volatiles", sensorController.retrieveVolatiles);
 
 
 module.exports = SensorRoutes
