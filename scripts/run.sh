@@ -2,6 +2,6 @@
 
 touch ./mosquitto/mosquitto.log
 
-docker compose -f ../docker-compose.yml up
+docker compose -f docker-compose.yaml up
 
 echo "Services started"
