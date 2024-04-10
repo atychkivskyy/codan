@@ -16,6 +16,12 @@ app.use((req, res, next) => {
 app.use(express.json());
 app.use("/", sensorRoutes);
 
-app.listen(PORT, () => {
-    console.log(`Sensor middleware listening on port ${PORT}`);
+const server = app.listen(PORT, () => {
+    console.log(`sensor-middleware listening on port ${PORT}`);
 })
+
+process.on('SIGTERM', () => {
+    server.close(() => {
+        console.log('sensor-middleware closed');
+    });
+});
