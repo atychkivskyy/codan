@@ -3,7 +3,7 @@ version: '3.8'
 services:
 
   mosquitto:
-    image: eclipse-mosquitto
+    image: eclipse-mosquitto:latest
     container_name: mosquitto
     ports:
       - "1883:1883"
@@ -13,6 +13,8 @@ services:
       - ./mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf
       - ./mosquitto/log:/var/log/mosquitto
       - mosquitto_data:/var/lib/mosquitto
+    networks:
+      - codan
 
   sensor-middleware:
     build: ./sensor-middleware
@@ -22,6 +24,8 @@ services:
     restart: always
     depends_on:
       - mosquitto
+    networks:
+      - codan
   
   nginx:
     image: nginx:alpine
@@ -33,13 +37,16 @@ services:
     restart: always
     depends_on:
       - sensor-middleware
+    networks:
+      - codan
 
   mongodb:
-    image: mongo
+    image: mongo:latest
     container_name: mongodb
+    command: --config /etc/mongod.conf --quiet
     environment:
-      MONGO_INITDB_ROOT_USERNAME: radmin
-      MONGO_INITDB_ROOT_PASSWORD: radmin
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
     ports:
       - "27017:27017"
     volumes:
@@ -47,21 +54,30 @@ services:
       - ./mongodb/log:/var/log/mongodb
       - mongo_data:/data/db
     restart: always
+    networks:
+      - codan
+
 
   mongo-middleware:
     build: ./mongo-middleware
     container_name: mongo-middleware
     environment:
-      - MONGO_USER=radmin
-      - MONGO_PASSWORD=radmin
-      - MONGO_HOST=mongodb
-      - MONGO_DB=metrics
+      MONGO_USER: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+      MONGO_HOST: mongodb
+      MONGO_DB: metrics
     restart: always
     depends_on:
       - mosquitto
       - mongodb
+    networks:
+      - codan
+
+networks:
+  codan:
+    name: codan
+    driver: bridge
 
 volumes:
   mosquitto_data:
   mongo_data:
-    driver: local
