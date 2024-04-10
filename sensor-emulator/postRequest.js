@@ -1,16 +1,16 @@
 const axios = require('axios');
-const SENSOR_COUNT = 10; // Number of sensors to emulate
-const INTERVAL = 3000; // Interval for data sending in milliseconds
+const SENSOR_COUNT = 5;
+const INTERVAL = 5000;
 
-const url = 'http://localhost:80/data'; // Replace with your target URL
+const url = 'http://localhost:80/test';
 
 function generateRandomData(sensorId) {
     return {
         sensor_id: sensorId,
-        temperature: Math.random() * 30 + 10, // Random temperature
-        humidity: Math.random() * 100, // Random humidity
-        co2: Math.random() * 100, // Random CO2 level
-        volatile: Math.random() * 5 // Random volatile compound level
+        temperature: Math.random() * 30 + 10,
+        humidity: Math.random() * 100,
+        co2: Math.random() * 100,
+        volatile: Math.random() * 5
     };
 }
 
