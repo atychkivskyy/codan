@@ -6,11 +6,11 @@ const url = 'http://localhost:80/data';
 
 function generateRandomData(sensorId) {
     return {
-        sensor_id: sensorId,
-        temperature: Math.random() * 30 + 10,
-        humidity: Math.random() * 100,
-        co2: Math.random() * 100,
-        volatile: Math.random() * 5
+        "sensor_id": sensorId,
+        "temperature": Math.random() * 30 + 10,
+        "humidity": Math.random() * 100,
+        "co2": Math.random() * 100,
+        "volatile": Math.random() * 5
     };
 }
 
