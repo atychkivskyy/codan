@@ -1,27 +1,21 @@
 const express = require("express");
 const sensorRoutes = require("./routes/sensorRoutes");
+const morgan = require("morgan");
 
-
-const PORT = 3000;
+const PORT = process.env.SENSOR_MIDDLEWARE_PORT || 3000;
 const app = express();
 
-
-app.use((req, res, next) => {
-    if (req.originalUrl !== "/metrics") {
-        console.log(`\n\n${new Date().toLocaleString()} | Method: ${req.method} | URL: ${req.originalUrl}`);
-    }
-    next()
-})
-
+app.use(morgan('dev'));
 app.use(express.json());
 app.use("/", sensorRoutes);
 
 const server = app.listen(PORT, () => {
     console.log(`sensor-middleware listening on port ${PORT}`);
-})
+});
 
 process.on('SIGTERM', () => {
+    console.log('SIGTERM received. Shutting down gracefully.');
     server.close(() => {
-        console.log('sensor-middleware closed');
+        console.log('Server closed.');
     });
 });

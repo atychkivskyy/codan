@@ -1,10 +1,10 @@
 const mqttClient = require('../services/mqttService');
 
-function test(req, res) {
-    return res.status(200).send("Hello from Sensor Controller");
-}
+exports.test = (req, res) => {
+    res.status(200).send("Hello from Sensor Controller");
+};
 
-function retrieveData(req, res) {
+exports.retrieveData = (req, res) => {
     let timestamp = new Date();
     let temperature = {
         sensor_id: req.body.sensor_id, temperature: req.body.temperature, time: timestamp
@@ -22,9 +22,5 @@ function retrieveData(req, res) {
     mqttClient.publish('sensor/humidity', JSON.stringify(humidity));
     mqttClient.publish('sensor/co2', JSON.stringify(co2));
     mqttClient.publish('sensor/volatile', JSON.stringify(volatile));
-    return res.status(200).send("Data received");
-}
-
-module.exports = {
-    test, retrieveData
+    res.status(200).send("Data received");
 }
