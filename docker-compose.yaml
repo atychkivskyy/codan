@@ -18,8 +18,10 @@ services:
   sensor-middleware:
     build: ./sensor-middleware
     container_name: sensor-middleware
+    environment:
+      SENSOR_MIDDLEWARE_PORT: ${SENSOR_MIDDLEWARE_PORT}
     ports:
-      - "3000:3000"
+      - ${SENSOR_MIDDLEWARE_PORT}:${SENSOR_MIDDLEWARE_PORT}
     restart: always
     depends_on:
       - mosquitto
@@ -36,24 +38,6 @@ services:
     restart: always
     depends_on:
       - sensor-middleware
-    networks:
-      - codan
-
-  grafana:
-    image: grafana/grafana-oss
-    container_name: grafana
-    restart: always
-    ports:
-      - ${GRAFANA_PORT}:3000
-    environment:
-      GF_AUTH_ANONYMOUS_ENABLED: true
-      GF_AUTH_ANONYMOUS_ORG_ROLE: admin
-      GF_AUTH_DISABLE_LOGIN_FORM: true
-    volumes:
-      - ./grafana:/etc/grafana/provisioning
-      - grafana-data:/var/lib/grafana
-    depends_on:
-      - influxdb
     networks:
       - codan
 
@@ -77,6 +61,24 @@ services:
     networks:
       - codan
 
+  grafana:
+    image: grafana/grafana-oss
+    container_name: grafana
+    restart: always
+    ports:
+      - ${GRAFANA_PORT}:3000
+    environment:
+      GF_AUTH_ANONYMOUS_ENABLED: true
+      GF_AUTH_ANONYMOUS_ORG_ROLE: admin
+      GF_AUTH_DISABLE_LOGIN_FORM: true
+    volumes:
+      - ./grafana:/etc/grafana/provisioning
+      - grafana-data:/var/lib/grafana
+    depends_on:
+      - influxdb
+    networks:
+      - codan
+
   influxdb-middleware:
     build: ./influxdb-middleware
     container_name: influxdb-middleware
@@ -86,8 +88,8 @@ services:
       INFLUXDB_TOKEN: ${DOCKER_INFLUXDB_INIT_ADMIN_TOKEN}
       INFLUXDB_ORG: ${DOCKER_INFLUXDB_INIT_ORG}
       INFLUXDB_BUCKET: ${DOCKER_INFLUXDB_INIT_BUCKET}
-      MQTT_BROKER: "mosquitto"
-      MQTT_PORT: 1883
+      MQTT_BROKER: ${MQTT_BROKER}
+      MQTT_PORT: ${MQTT_BROKER_PORT}
       MQTT_TOPIC: "sensor/#"
     depends_on:
       - influxdb
