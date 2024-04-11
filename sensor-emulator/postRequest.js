@@ -2,7 +2,7 @@ const axios = require('axios');
 const SENSOR_COUNT = 5;
 const INTERVAL = 5000;
 
-const url = 'http://localhost:80/test';
+const url = 'http://localhost:80/data';
 
 function generateRandomData(sensorId) {
     return {
