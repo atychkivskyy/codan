@@ -62,7 +62,7 @@ services:
       - codan
 
   grafana:
-    image: grafana/grafana-oss
+    image: grafana/grafana
     container_name: grafana
     restart: always
     ports:
