@@ -1,4 +1,4 @@
-const mqttClient = require('../services/mqttService');
+const mqttClient = require('./mqttService');
 
 exports.test = (req, res) => {
     res.status(200).send("Hello from Sensor Controller");

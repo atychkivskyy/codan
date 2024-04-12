@@ -1,12 +1,12 @@
 const express = require("express");
-const sensorRoutes = require("./routes/sensorRoutes");
+const sensorRoutes = require("./sensorRoutes");
 const morgan = require("morgan");
 const ipfilter = require('express-ipfilter').IpFilter;
 
 const PORT = process.env.SENSOR_MIDDLEWARE_PORT || 3000;
 const app = express();
 
-const blockedIPs = ['10.0.3.20'];
+const blockedIPs = ['192.168.1.133'];
 const ipFilter = ipfilter(blockedIPs, {mode: 'deny'});
 
 app.use(ipFilter);
