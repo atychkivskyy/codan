@@ -1,9 +1,8 @@
-version: '3.3'
-
+version: '3.8'
 services:
 
   mosquitto:
-    image: eclipse-mosquitto
+    image: eclipse-mosquitto:latest
     container_name: mosquitto
     ports:
       - "1883:1883"
@@ -11,25 +10,137 @@ services:
     restart: always
     volumes:
       - ./mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf
-      - ./mosquitto/mosquitto.log:/var/log/mosquitto/mosquitto.log
-      - mosquitto_data:/var/lib/mosquitto
+      - ./mosquitto/log:/mosquitto/log/
+      - mosquitto-data:/mosquitto/data/
+    networks:
+      - codan
 
-  sensor-middleware:
+  sensor-middleware-1:
     build: ./sensor-middleware
-    deploy:
-      replicas: 4
+    container_name: sensor-middleware-1
+    environment:
+      SENSOR_MIDDLEWARE_PORT: ${SENSOR_MIDDLEWARE_1_PORT}
+    ports:
+      - ${SENSOR_MIDDLEWARE_1_PORT}:${SENSOR_MIDDLEWARE_1_PORT}
+    restart: always
     depends_on:
       - mosquitto
+    networks:
+      - codan
+
+  sensor-middleware-2:
+    build: ./sensor-middleware
+    container_name: sensor-middleware-2
+    environment:
+      SENSOR_MIDDLEWARE_PORT: ${SENSOR_MIDDLEWARE_2_PORT}
+    ports:
+      - ${SENSOR_MIDDLEWARE_2_PORT}:${SENSOR_MIDDLEWARE_2_PORT}
+    restart: always
+    depends_on:
+      - mosquitto
+    networks:
+      - codan
+
+  sensor-middleware-3:
+    build: ./sensor-middleware
+    container_name: sensor-middleware-3
+    environment:
+      SENSOR_MIDDLEWARE_PORT: ${SENSOR_MIDDLEWARE_3_PORT}
+    ports:
+      - ${SENSOR_MIDDLEWARE_3_PORT}:${SENSOR_MIDDLEWARE_3_PORT}
+    restart: always
+    depends_on:
+      - mosquitto
+    networks:
+      - codan
+
+  sensor-middleware-4:
+    build: ./sensor-middleware
+    container_name: sensor-middleware-4
+    environment:
+      SENSOR_MIDDLEWARE_PORT: ${SENSOR_MIDDLEWARE_4_PORT}
+    ports:
+      - ${SENSOR_MIDDLEWARE_4_PORT}:${SENSOR_MIDDLEWARE_4_PORT}
+    restart: always
+    depends_on:
+      - mosquitto
+    networks:
+      - codan
 
   nginx:
     image: nginx:alpine
     container_name: nginx
     ports:
-      - "80:80"
+      - ${NGINX_PORT}:80
     volumes:
       - ./proxy/nginx.conf:/etc/nginx/nginx.conf
+    restart: always
     depends_on:
-      - sensor-middleware
+      - sensor-middleware-1
+      - sensor-middleware-2
+      - sensor-middleware-3
+      - sensor-middleware-4
+    networks:
+      - codan
+
+  influxdb:
+    image: influxdb:latest
+    container_name: influxdb
+    restart: always
+    ports:
+      - ${DOCKER_INFLUXDB_INIT_PORT}:8086
+    volumes:
+      - influxdb-data:/var/lib/influxdb2
+    environment:
+      DOCKER_INFLUXDB_INIT_MODE: ${DOCKER_INFLUXDB_INIT_MODE}
+      DOCKER_INFLUXDB_INIT_USERNAME: ${DOCKER_INFLUXDB_INIT_USERNAME}
+      DOCKER_INFLUXDB_INIT_PASSWORD: ${DOCKER_INFLUXDB_INIT_PASSWORD}
+      DOCKER_INFLUXDB_INIT_ORG: ${DOCKER_INFLUXDB_INIT_ORG}
+      DOCKER_INFLUXDB_INIT_BUCKET: ${DOCKER_INFLUXDB_INIT_BUCKET}
+      DOCKER_INFLUXDB_INIT_RETENTION: ${DOCKER_INFLUXDB_INIT_RETENTION}
+      DOCKER_INFLUXDB_INIT_ADMIN_TOKEN: ${DOCKER_INFLUXDB_INIT_ADMIN_TOKEN}
+      DOCKER_INFLUXDB_INIT_PORT: ${DOCKER_INFLUXDB_INIT_PORT}
+    networks:
+      - codan
+
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    restart: always
+    ports:
+      - ${GRAFANA_PORT}:3000
+    volumes:
+      - grafana-data:/var/lib/grafana
+    depends_on:
+      - influxdb
+    networks:
+      - codan
+
+  influxdb-middleware:
+    build: ./influxdb-middleware
+    container_name: influxdb-middleware
+    restart: always
+    environment:
+      INFLUXDB_URL: "http://influxdb:8086"
+      INFLUXDB_TOKEN: ${DOCKER_INFLUXDB_INIT_ADMIN_TOKEN}
+      INFLUXDB_ORG: ${DOCKER_INFLUXDB_INIT_ORG}
+      INFLUXDB_BUCKET: ${DOCKER_INFLUXDB_INIT_BUCKET}
+      MQTT_BROKER: ${MQTT_BROKER}
+      MQTT_PORT: ${MQTT_BROKER_PORT}
+      MQTT_TOPIC: "sensor/#"
+    depends_on:
+      - influxdb
+      - mosquitto
+    networks:
+      - codan
+
+networks:
+  codan:
+    name: codan
+    driver: bridge
 
 volumes:
-  mosquitto_data: 
+  mosquitto-data:
+  mongo-data:
+  grafana-data:
+  influxdb-data:
