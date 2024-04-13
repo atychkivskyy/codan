@@ -25,6 +25,22 @@ menos cuatro servicios.
 
 ## Sensor middleware
 
+### Test sensor middleware
+
+```shell
+
+curl --location --request POST 'localhost/data' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "sensor_id":"nodoPrueba1",
+    "temperature":24.5,
+    "humidity":68.2,
+    "co2":293,
+    "volatile":112
+}'
+
+```
+
 ### API Reference
 
 | Ruta  | Metodo | Respuesta                    |
