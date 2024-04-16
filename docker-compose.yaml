@@ -17,11 +17,11 @@ services:
 
   sensor-middleware:
     build: ./sensor-middleware
-    container_name: sensor-middleware
+    deploy:
+      mode: replicated
+      replicas: 3
     environment:
-      SENSOR_MIDDLEWARE_PORT: ${SENSOR_MIDDLEWARE_1_PORT}
-    ports:
-      - ${SENSOR_MIDDLEWARE_1_PORT}:${SENSOR_MIDDLEWARE_1_PORT}
+      SENSOR_MIDDLEWARE_PORT: ${SENSOR_MIDDLEWARE_PORT}
     restart: always
     depends_on:
       - mosquitto
@@ -67,6 +67,9 @@ services:
     restart: always
     ports:
       - ${GRAFANA_PORT}:3000
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
     volumes:
       - grafana-data:/var/lib/grafana
     depends_on:
