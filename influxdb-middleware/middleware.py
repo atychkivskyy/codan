@@ -6,7 +6,7 @@ from influxdb_client import InfluxDBClient, Point
 from influxdb_client.client.write_api import SYNCHRONOUS
 
 INFLUXDB_URL = os.getenv('INFLUXDB_URL', 'http://influxdb:8086')
-INFLUXDB_TOKEN = os.getenv('INFLUXDB_TOKEN', 'c6c49c0a9d718d3650299a6cb08')
+INFLUXDB_TOKEN = os.getenv('INFLUXDB_TOKEN', 'c6c49c0a9d718d3650299a6cb082ed5e')
 INFLUXDB_ORG = os.getenv('INFLUXDB_ORG', 'codan')
 INFLUXDB_BUCKET = os.getenv('INFLUXDB_BUCKET', 'metrics')
 MQTT_BROKER = os.getenv('MQTT_BROKER', 'mosquitto')
