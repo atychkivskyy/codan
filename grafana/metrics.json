@@ -24,7 +24,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "adici4vqd2io0e"
+        "uid": "influxdb"
       },
       "fieldConfig": {
         "defaults": {
@@ -106,7 +106,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "adici4vqd2io0e"
+            "uid": "influxdb"
           },
           "query": "from(bucket: \"metrics\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"sensor_data\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"temperature\")\r\n  |> filter(fn: (r) => r[\"sensor_id\"] == \"5\" or r[\"sensor_id\"] == \"1\" or r[\"sensor_id\"] == \"2\" or r[\"sensor_id\"] == \"3\" or r[\"sensor_id\"] == \"4\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\r\n  |> yield(name: \"mean\")",
           "refId": "A"
@@ -118,7 +118,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "adici4vqd2io0e"
+        "uid": "influxdb"
       },
       "fieldConfig": {
         "defaults": {
@@ -200,7 +200,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "adici4vqd2io0e"
+            "uid": "influxdb"
           },
           "query": "from(bucket: \"metrics\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"sensor_data\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"humidity\")\r\n  |> filter(fn: (r) => r[\"sensor_id\"] == \"5\" or r[\"sensor_id\"] == \"1\" or r[\"sensor_id\"] == \"2\" or r[\"sensor_id\"] == \"3\" or r[\"sensor_id\"] == \"4\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\r\n  |> yield(name: \"mean\")",
           "refId": "A"
@@ -212,7 +212,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "adici4vqd2io0e"
+        "uid": "influxdb"
       },
       "fieldConfig": {
         "defaults": {
@@ -294,7 +294,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "adici4vqd2io0e"
+            "uid": "influxdb"
           },
           "query": "from(bucket: \"metrics\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"sensor_data\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"co2\")\r\n  |> filter(fn: (r) => r[\"sensor_id\"] == \"5\" or r[\"sensor_id\"] == \"1\" or r[\"sensor_id\"] == \"2\" or r[\"sensor_id\"] == \"3\" or r[\"sensor_id\"] == \"4\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\r\n  |> yield(name: \"mean\")",
           "refId": "A"
@@ -306,7 +306,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "adici4vqd2io0e"
+        "uid": "influxdb"
       },
       "fieldConfig": {
         "defaults": {
@@ -387,7 +387,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "adici4vqd2io0e"
+            "uid": "influxdb"
           },
           "query": "from(bucket: \"metrics\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"sensor_data\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"volatile\")\r\n  |> filter(fn: (r) => r[\"sensor_id\"] == \"5\" or r[\"sensor_id\"] == \"1\" or r[\"sensor_id\"] == \"2\" or r[\"sensor_id\"] == \"3\" or r[\"sensor_id\"] == \"4\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\r\n  |> yield(name: \"mean\")",
           "refId": "A"

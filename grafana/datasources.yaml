@@ -1,0 +1,19 @@
+apiVersion: 1
+
+deleteDatasources:
+  - name: influxdb
+    orgId: 1
+
+datasources:
+  - name: influxdb
+    type: influxdb
+    uid: influxdb
+    access: proxy
+    url: http://influxdb:8086
+    jsonData:
+      version: Flux
+      organization: codan
+      defaultBucket: metrics
+      tlsSkipVerify: true
+    secureJsonData:
+      token: c6c49c0a9d718d3650299a6cb082ed5e
