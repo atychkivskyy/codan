@@ -2,7 +2,7 @@ import os
 import sys
 import json
 import paho.mqtt.client as mqtt
-from influxdb_client import InfluxDBClient, Point, WriteOptions
+from influxdb_client import InfluxDBClient, Point
 from influxdb_client.client.write_api import SYNCHRONOUS
 
 INFLUXDB_URL = os.getenv('INFLUXDB_URL', 'http://influxdb:8086')
@@ -20,6 +20,7 @@ if any(c is None for c in required_configs):
 client = InfluxDBClient(url=INFLUXDB_URL, token=INFLUXDB_TOKEN, org=INFLUXDB_ORG)
 write_api = client.write_api(write_options=SYNCHRONOUS)
 
+
 def on_message(client, userdata, message):
     try:
         data = json.loads(message.payload.decode('utf-8'))
@@ -34,7 +35,9 @@ def on_message(client, userdata, message):
     except Exception as e:
         print(f"Error processing message: {e}")
 
+
 mqtt_client = mqtt.Client()
+
 
 def connect_mqtt():
     try:
@@ -43,6 +46,7 @@ def connect_mqtt():
     except Exception as e:
         print(f"Failed to connect to MQTT broker: {e}")
         sys.exit(1)
+
 
 mqtt_client.on_message = on_message
 mqtt_client.on_disconnect = lambda client, userdata, rc: connect_mqtt()
