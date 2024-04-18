@@ -1,15 +1,9 @@
 const express = require("express");
 const sensorRoutes = require("./sensorRoutes");
 const morgan = require("morgan");
-const IpFilter = require('express-ipfilter').IpFilter;
-
 
 const PORT = process.env.SENSOR_MIDDLEWARE_PORT || 3000;
 const app = express();
-
-let blockedIps = [];
-
-app.use(IpFilter(blockedIps, {mode: 'deny'}));
 
 morgan.token('real-ip', function (req, res) {
     return req.headers['x-real-ip'] || req.headers['x-forwarded-for'] || req.connection.remoteAddress;
