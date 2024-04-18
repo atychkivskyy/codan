@@ -1,3 +1,5 @@
+const fs = require("fs");
+const path = require("path");
 const mqttClient = require('./mqttService');
 
 exports.test = (req, res) => {
@@ -23,4 +25,14 @@ exports.retrieveData = (req, res) => {
     mqttClient.publish('sensor/co2', JSON.stringify(co2));
     mqttClient.publish('sensor/volatile', JSON.stringify(volatile));
     res.status(200).send("Data received");
+}
+
+exports.home = (req, res) => {
+    if (req.query.wadl === '') {
+        const wadlPath = path.join(__dirname, 'service.wadl');
+        res.type('application/xml');
+        fs.createReadStream(wadlPath).pipe(res);
+    } else {
+        res.send("Welcome to the Sensor Middleware API.");
+    }
 }
