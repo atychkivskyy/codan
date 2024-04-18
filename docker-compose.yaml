@@ -1,4 +1,3 @@
-version: "3.8"
 services:
 
   mosquitto:
@@ -14,6 +13,11 @@ services:
       - mosquitto-data:/mosquitto/data/
     networks:
       - codan
+    healthcheck:
+      test: [ "CMD", "timeout", "1", "mosquitto_sub", "-h", "localhost", "-p", "1883", "-t", "'topic'", "-E", "-i", "probe" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
   sensor-middleware:
     build: ./sensor-middleware
@@ -27,6 +31,11 @@ services:
       - mosquitto
     networks:
       - codan
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:${SENSOR_MIDDLEWARE_PORT}/test" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
   
   nginx:
     image: nginx:alpine
@@ -41,6 +50,11 @@ services:
       - sensor-middleware
     networks:
       - codan
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:${NGINX_PORT}/test" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
   influxdb:
     image: influxdb:latest
@@ -61,6 +75,11 @@ services:
       DOCKER_INFLUXDB_INIT_PORT: ${DOCKER_INFLUXDB_INIT_PORT}
     networks:
       - codan
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:${DOCKER_INFLUXDB_INIT_PORT}/health" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
   grafana:
     image: grafana/grafana
@@ -81,6 +100,11 @@ services:
       - influxdb
     networks:
       - codan
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:${GRAFANA_PORT}/" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
   influxdb-middleware:
     build: ./influxdb-middleware
