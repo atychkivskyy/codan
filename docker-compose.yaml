@@ -130,6 +130,5 @@ networks:
 
 volumes:
   mosquitto-data:
-  mongo-data:
   grafana-data:
   influxdb-data:
