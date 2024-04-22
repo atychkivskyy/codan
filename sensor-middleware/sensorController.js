@@ -3,10 +3,10 @@ const path = require("path");
 const mqttClient = require('./mqttService');
 
 exports.test = (req, res) => {
-    res.status(200).send("Hello from Sensor Controller");
+    return res.status(200).send("Hello from Sensor Controller");
 };
 
-exports.retrieveData = (req, res) => {
+exports.retrieveData = async (req, res) => {
     let timestamp = new Date();
     let temperature = {
         sensor_id: req.body.sensor_id, temperature: req.body.temperature, time: timestamp
@@ -20,11 +20,27 @@ exports.retrieveData = (req, res) => {
     let volatile = {
         sensor_id: req.body.sensor_id, volatile: req.body.volatile, time: timestamp
     }
-    mqttClient.publish('sensor/temperature', JSON.stringify(temperature));
-    mqttClient.publish('sensor/humidity', JSON.stringify(humidity));
-    mqttClient.publish('sensor/co2', JSON.stringify(co2));
-    mqttClient.publish('sensor/volatile', JSON.stringify(volatile));
-    res.status(200).send("Data received");
+    mqttClient.publish('sensor/temperature', JSON.stringify(temperature), (error) => {
+        if (error) {
+            console.error('Failed to publish message:', error);
+        }
+    });
+    mqttClient.publish('sensor/humidity', JSON.stringify(humidity), (error) => {
+        if (error) {
+            console.error('Failed to publish message:', error);
+        }
+    });
+    mqttClient.publish('sensor/co2', JSON.stringify(co2), (error) => {
+        if (error) {
+            console.error('Failed to publish message:', error);
+        }
+    });
+    mqttClient.publish('sensor/volatile', JSON.stringify(volatile), (error) => {
+        if (error) {
+            console.error('Failed to publish message:', error);
+        }
+    });
+    return res.status(200).send("Data received");
 }
 
 exports.home = (req, res) => {
@@ -32,7 +48,8 @@ exports.home = (req, res) => {
         const wadlPath = path.join(__dirname, 'service.wadl');
         res.type('application/xml');
         fs.createReadStream(wadlPath).pipe(res);
+        return res.status(200);
     } else {
-        res.send("Welcome to the Sensor Middleware API.");
+        return res.send("Welcome to the Sensor Middleware API.");
     }
 }
