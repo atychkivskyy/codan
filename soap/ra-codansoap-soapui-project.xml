@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="e76b3135-a5cb-47b6-8e25-34f59ee96a08" activeEnvironment="Default" name="codansoap" resourceRoot="" soapui-version="5.7.2" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="8c9f24c3-c676-455e-bc21-5040d9fb1c9c" wsaVersion="NONE" name="MetricsPortSoap11" type="wsdl" bindingName="{http://www.codan.es/springsoap/gen}MetricsPortSoap11" soapVersion="1_1" anonymous="optional" definition="http://localhost:8080/ws/metrics.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://localhost:8080/ws/metrics.wsdl"><con:part><con:url>http://localhost:8080/ws/metrics.wsdl</con:url><con:content><![CDATA[<wsdl:definitions targetNamespace="http://www.codan.es/springsoap/gen" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:sch="http://www.codan.es/springsoap/gen" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.codan.es/springsoap/gen">
+  <wsdl:types>
+    <xs:schema elementFormDefault="qualified" targetNamespace="http://www.codan.es/springsoap/gen" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="getMeanRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="sensor_id" type="xs:string"/>
+            <xs:element name="metric" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="getMeanResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="mean" type="tns:mean"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:complexType name="mean">
+        <xs:sequence>
+          <xs:element name="sensor_id" type="xs:string"/>
+          <xs:element name="metric" type="xs:string"/>
+          <xs:element name="value" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="getMeanRequest">
+    <wsdl:part element="tns:getMeanRequest" name="getMeanRequest"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getMeanResponse">
+    <wsdl:part element="tns:getMeanResponse" name="getMeanResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="MetricsPort">
+    <wsdl:operation name="getMean">
+      <wsdl:input message="tns:getMeanRequest" name="getMeanRequest"></wsdl:input>
+      <wsdl:output message="tns:getMeanResponse" name="getMeanResponse"></wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="MetricsPortSoap11" type="tns:MetricsPort">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="getMean">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="getMeanRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getMeanResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="MetricsPortService">
+    <wsdl:port binding="tns:MetricsPortSoap11" name="MetricsPortSoap11">
+      <soap:address location="http://localhost:8080/ws"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8080/ws</con:endpoint></con:endpoints><con:operation id="3b6609c7-cc8f-401b-bd7c-2ae8b5cdf8c7" isOneWay="false" action="" name="getMean" bindingOperationName="getMean" type="Request-Response" outputName="getMeanResponse" inputName="getMeanRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="7649eb5b-c5ab-45ec-8651-ee74fab68cab" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:gen="http://www.codan.es/springsoap/gen">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <gen:getMeanRequest>\r
+         <gen:sensor_id>1</gen:sensor_id>\r
+         <gen:metric>temperature</gen:metric>\r
+      </gen:getMeanRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.codan.es/springsoap/gen/MetricsPort/getMeanRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/></con:soapui-project>
