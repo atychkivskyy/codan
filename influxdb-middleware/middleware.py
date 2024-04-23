@@ -27,7 +27,7 @@ def on_message(client, userdata, message):
 
         point = Point("sensor_data") \
             .tag("sensor_id", data["sensor_id"]) \
-            .field(message.topic.split('/')[-1], float(data[message.topic.split('/')[-1])]) \
+            .field(message.topic.split('/')[-1], float(data[message.topic.split('/')[-1]])) \
             .time(data["time"])
 
         write_api.write(bucket=INFLUXDB_BUCKET, record=point)
