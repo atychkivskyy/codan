@@ -11,7 +11,7 @@
 	</parent>
 	<groupId>es.codan.springsoap</groupId>
 	<artifactId>codansoap</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
 	<name>codansoap</name>
 	<description>Proyecto Codan para Redes Avanzadas</description>
 	<properties>
