@@ -7,37 +7,39 @@ import com.influxdb.client.InfluxDBClient;
 public class MetricsDao {
     // private static Result oneResult;
 
-    public static List<String> select() {
-
-    	List <String> result = null;
-    	
-        String token = "6uXMW87kIGDJYqvkhQBrQfOhYsfUbehgUtxAHeX5ohN2H-5XCiA8PEXlDAAkeo77HnqYj22VgeGxcGo5IS2sMQ==";
-        String bucket = "metrics";
-        String org = "codan";
-        String url = "http://localhost:8086";
-
-        InfluxDBConnectionClass inConn = new InfluxDBConnectionClass();
-        InfluxDBClient influxDBClient = inConn.buildConnection(url, token, bucket, org);
-
-        result = inConn.queryData(influxDBClient);
-
-        influxDBClient.close();
-        
-        return result; 
-    }
+//    public static List<String> select() {
+//
+//    	List <String> result = null;
+//    	
+//        String token = "6jFEZZcQkAXokUNl4tS25lEJ1BdBsfpfWLOoPYHKH9zxiM43KhLCTngAeQFIqSRMIahlisT8kdi7pBnR61q77g==";
+//        String bucket = "metrics";
+//        String org = "codan";
+//        String url = "http://localhost:8086";
+//
+//        InfluxDBConnectionClass inConn = new InfluxDBConnectionClass();
+////        InfluxDBClient influxDBClient = inConn.buildConnection(url, token, bucket, org);
+//        InfluxDBClient influxDBClient = inConn.buildConnection();
+//
+//        result = inConn.queryData(influxDBClient);
+//
+//        influxDBClient.close();
+//        
+//        return result; 
+//    }
 
     public static String selectMean(String sensor, String metric) {
 
     	String result = "";
     	
-        String token = "6uXMW87kIGDJYqvkhQBrQfOhYsfUbehgUtxAHeX5ohN2H-5XCiA8PEXlDAAkeo77HnqYj22VgeGxcGo5IS2sMQ==";
-        String bucket = "metrics";
-        String org = "codan";
-        String url = "http://localhost:8086";
+//        String token = "6jFEZZcQkAXokUNl4tS25lEJ1BdBsfpfWLOoPYHKH9zxiM43KhLCTngAeQFIqSRMIahlisT8kdi7pBnR61q77g==";
+//        String bucket = "metrics";
+//        String org = "codan";
+//        String url = "http://localhost:8086";
 
         InfluxDBConnectionClass inConn = new InfluxDBConnectionClass();
-        InfluxDBClient influxDBClient = inConn.buildConnection(url, token, bucket, org);
-
+//        InfluxDBClient influxDBClient = inConn.buildConnection(url, token, bucket, org);
+        InfluxDBClient influxDBClient = inConn.buildConnection();
+        
         result = inConn.queryMean(influxDBClient, sensor, metric);
 
         influxDBClient.close();
