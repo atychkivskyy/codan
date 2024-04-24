@@ -1,4 +1,0 @@
-https://github.com/jpontdia/ws-employee-soapcxf
-
-https://rosamarfil.es/tutoriales/programacion/crear-api-soap-java-jax-ws/
--> He usado esto que es mucho más sencillo y no hace falta construir a mano el wsdl.
