@@ -123,6 +123,16 @@ services:
     networks:
       - codan
 
+  soap:
+    container_name: soap
+    restart: always
+    build: ./soap
+    image: soap:latest
+    ports:
+      - 8080:8080
+    networks:
+      - codan
+
 networks:
   codan:
     name: codan
