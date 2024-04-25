@@ -7,7 +7,7 @@ const { InfluxDB } = require('@influxdata/influxdb-client'); // Importa el clien
 const dbConfig = {
   host: 'localhost',
   user: 'root', // Tu nombre de usuario de MySQL
-  password: 'Servihabitat.3', // Tu contraseña de MySQL
+  password: '', // Tu contraseña de MySQL
   database: 'database_name', // El nombre de tu base de datos MySQL
   port: 3306 // Puerto MySQL
 };
