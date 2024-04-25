@@ -1,0 +1,25 @@
+<ion-content class="login-page">
+  <div class="background">
+    <!-- Fondo con gradiente -->
+  </div>
+
+  <div class="content">
+    <!-- Imagen -->
+    <img src="assets/icon/icono.jpg" class="centered-image">
+
+    <!-- Texto -->
+    <p class="text">¡Cocina con ingenio, saborea con pasión!</p>
+
+    <!-- Recuadro blanco con placeholders y botones -->
+    <div class="form-box">
+      <ion-input placeholder="Nombre de usuario" class="placeholder"[(ngModel)]="username" ></ion-input>
+      <ion-input placeholder="Contraseña" type="password" class="placeholder"  [(ngModel)]="password"></ion-input>
+      <p *ngIf="error" class="error-message">*usuario o contraseña incorrectos.</p>
+      <ion-button expand="block" class="submit-button-top small-button" color="secondary" (click)="login()" >Iniciar sesión</ion-button>
+      <ion-button expand="block" class="register-button-button small-button" color="primary">Iniciar sesión con Google</ion-button>
+
+      <p class="text">¿Aún no tienes tu cuenta? <a href="/register" class="register-link">Regístrate</a></p>
+    </div>
+    
+  </div>
+</ion-content>

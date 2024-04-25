@@ -1,0 +1,89 @@
+/* En tu archivo SCSS */
+
+.login-page {
+    .background {
+      background: linear-gradient(to bottom, var(--ion-color-tertiary) 40%, var(--ion-color-primary)); /* Fondo con gradiente */
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1; /* Para colocar detrás del contenido */
+    }
+  
+    .content {
+      text-align: center;
+      padding-top: 50px; /* Ajusta según sea necesario */
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center; /* Centrar verticalmente */
+      align-items: center; /* Centrar horizontalmente */
+      z-index: 1; /* Asegurar que esté por encima del fondo */ /* Color del texto */
+      
+    }
+  
+    .centered-image {
+      display: block;
+      margin: 0 auto;
+      width: 180px; /* Ajusta según sea necesario */
+      height: auto;
+      border-radius: 20px;
+    }
+  
+    .text {
+      margin-top: 20px; /* Ajusta según sea necesario */
+    }
+  
+    .form-box {
+      background-color: white;
+      max-width: 280px; /* Ajusta según sea necesario */
+      margin: 0 auto;
+      padding: 40px;
+      border-radius: 40px;
+      margin-top: 20px; /* Ajusta según sea necesario */
+        .text{
+            font-size: 10px;
+            color: #0c0b0c;
+            font-weight: bold;            .register-link {
+                font-size: inherit; /* Utiliza el tamaño de fuente heredado */
+                text-decoration: underline; /* Agrega subrayado al enlace */
+                color:rgb(12, 73, 70); /* Utiliza el color de texto heredado */
+              }
+            
+        }
+    }
+    .error-message {
+      font-size: 12px; /* Establece el tamaño de fuente más pequeño */
+      color: red; /* Cambia el color del texto a rojo para indicar un mensaje de error */
+      margin-top: 5px; /* Ajusta el margen superior para separarlo del campo de contraseña */
+    }
+  
+    .placeholder {
+      margin-bottom: 10px;
+      color:#3e3f40;
+      text-align: left;
+      
+    }
+  
+    .ion-button{
+        border-radius: 50px;
+    }
+    .submit-button-top {
+        margin-top: 20px; /* Espacio entre el texto y el botón superior */
+        --background: #007bff; /* Cambiar el color de fondo del botón superior */
+        --color: white; /* Cambiar el color del texto del botón superior */
+    }
+      
+    .register-button-bottom {
+        --margin-top: 10px; /* Espacio entre los botones */
+        --background: #0c0b0c; /* Cambiar el color de fondo del botón inferior */
+    }
+    .small-button {
+        margin-bottom: 15px;
+        font-size: 10px; /* Ajusta el tamaño del texto */
+        --border-radius: 20px; /* Ajusta el radio de las esquinas para hacerlo más circular */
+    }
+    
+}
+  

@@ -1,0 +1,53 @@
+<ion-menu contentId="main-content">
+  <ion-header>
+    <ion-toolbar color="white">
+      <ion-title>Menu</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content class="ion-padding" >
+    <!-- Lista de botones en el menú -->
+    <ion-list>
+      <ion-item button href="/graphics">
+        <ion-label>Graphics</ion-label>
+      </ion-item>
+      <ion-item button href="/settings">
+        <ion-label>Settings</ion-label>
+      </ion-item>
+      
+    </ion-list>
+  </ion-content>
+</ion-menu>
+<div class="ion-page" id="main-content">
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>Graphics</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content class="login-page">
+    <div class="background">
+      <!-- Fondo con gradiente -->
+    </div>
+    <div class="content">
+      <div class="form-box">
+        <h2 class="box-title">Temperature</h2>
+        <canvas #myChart1></canvas>
+      </div>
+      <div class="form-box">
+        <h2 class="box-title">Humidity</h2>
+        <canvas #myChart2></canvas>
+      </div>
+      <div class="form-box">
+        <h2 class="box-title">co2</h2>
+        <canvas #myChart3></canvas>
+      </div>
+      <div class="form-box">
+        <h2 class="box-title">CoV</h2>
+        <canvas #myChart4></canvas>
+      </div>
+    </div>
+  </ion-content>
+</div>
+
