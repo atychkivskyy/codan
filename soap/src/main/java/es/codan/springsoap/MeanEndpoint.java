@@ -15,20 +15,18 @@ public class MeanEndpoint {
 
     private static final String NAMESPACE_URI = "http://www.codan.es/springsoap/gen";
 
-//    private MetricRepository metricRepository;
-//
-//    @Autowired
-//    public MetricEndpoint(MetricRepository metricRepository) {
-//        this.metricRepository = metricRepository;
-//    }
-
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "getMeanRequest")
     @ResponsePayload
     public GetMeanResponse getMetric(@RequestPayload GetMeanRequest request) {
         GetMeanResponse response = new GetMeanResponse();
-//        response.setMetric(metricRepository.findMetric(request.getSensorId()));
-
-        String value = MetricsDao.selectMean(request.getSensorId(), request.getMetric());
+        String date = "";
+        if (request.getDate() != null) {
+        	date = String.format("%04d", request.getDate().getYear()) + "-" 
+        			+ String.format("%02d", request.getDate().getMonth()) + "-" 
+        			+ String.format("%02d", request.getDate().getDay());
+    	}
+        
+        String value = MetricsDao.selectMean(request.getSensorId(), request.getMetric(), date);
         
         Mean mean = new Mean();
         mean.setSensorId(request.getSensorId());
@@ -39,4 +37,6 @@ public class MeanEndpoint {
 
         return response;
     }
+    
+   
 }

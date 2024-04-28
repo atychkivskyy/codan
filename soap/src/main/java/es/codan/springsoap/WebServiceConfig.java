@@ -20,16 +20,16 @@ public class WebServiceConfig extends WsConfigurerAdapter {
     public ServletRegistrationBean<MessageDispatcherServlet> messageDispatcherServlet(ApplicationContext applicationContext) {
         MessageDispatcherServlet servlet = new MessageDispatcherServlet();
         servlet.setApplicationContext(applicationContext);
-        servlet.setTransformWsdlLocations(true);
-        return new ServletRegistrationBean<>(servlet, "/ws/*");
+        servlet.setTransformWsdlLocations(false);
+        return new ServletRegistrationBean<>(servlet, "/*");
     }
 
     @Bean(name = "metrics")
     public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema metricsSchema) {
         DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
         wsdl11Definition.setPortTypeName("MetricsPort");
-        wsdl11Definition.setLocationUri("/ws");
-        wsdl11Definition.setTargetNamespace("http://www.codan.es/springsoap/gen");
+        wsdl11Definition.setLocationUri("/");
+        wsdl11Definition.setTargetNamespace("http://schemas.xmlsoap.org/wsdl/");
         wsdl11Definition.setSchema(metricsSchema);
         return wsdl11Definition;
     }
