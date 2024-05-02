@@ -1,5 +1,5 @@
 const axios = require('axios');
-const SENSOR_COUNT = 300;
+const SENSOR_COUNT = 5;
 const INTERVAL = 5000;
 
 const url = 'http://localhost:80/data';
