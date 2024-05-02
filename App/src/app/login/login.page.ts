@@ -17,7 +17,7 @@ export class LoginPage implements OnInit {
 
   username: string='';
   password: string='';
-  error: boolean = false; // Agrega una propiedad 'error'
+  error: string = ''; 
 
   ngOnInit(): void {
     
@@ -26,21 +26,31 @@ export class LoginPage implements OnInit {
   constructor(private authService: AuthService, private router: Router) { }
 
   login() {
-    this.authService.login(this.username, this.password).subscribe(success => {
-      if (success) {
-        // Redirige a otra página si el inicio de sesión fue exitoso
-        this.router.navigate(['/graphics']); 
-      } else {
-        // Maneja el inicio de sesión fallido
-        this.error = true; // Establece 'error' como true si el inicio de sesión falla
-
+    this.authService.login(this.username, this.password).subscribe(
+      (response: boolean | string) => {
+        if (response === true) {
+          this.authService.checkUserEnabled(this.username).subscribe(
+            (response) => {
+              if (response === true) {
+                this.router.navigate(['/graphics']);
+              } else {
+                this.error = response as string;
+              }
+            },
+            (error) => {
+              //console.error(error);
+              this.error = 'Error interno del servidor';
+            }
+          );
+        } else {
+          this.error = response as string;
+        }
+      },
+      (error) => {
+        console.error(error);
+        this.error = 'Error interno del servidor';
       }
-    },
-    error => {
-      console.error(error);
-      this.error = true; // Establece 'error' como true si hay un error en la solicitud
-    }
-  );
+    );
   }
-
+  
 }

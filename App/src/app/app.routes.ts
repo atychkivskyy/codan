@@ -8,15 +8,16 @@ export const routes: Routes = [
     loadComponent: () => import('./login/login.page').then( m => m.LoginPage)
   },
   {
-    path: 'register',
-    loadComponent: () => import('./register/register.page').then( m => m.RegisterPage)
+    path: 'management',
+    loadComponent: () => import('./management/management.page').then( m => m.managementPage)
   },
   {
     path: 'graphics',
     loadComponent: () => import('./graphics/graphics.page').then( m => m.GraphicsPage)
+  },  {
+    path: 'prueba',
+    loadComponent: () => import('./prueba/prueba.page').then( m => m.PruebaPage)
   },
-  {
-    path: 'settings',
-    loadComponent: () => import('./ajustes/settings.page').then( m => m.SettingsPage)
-  }
+
+ 
 ];

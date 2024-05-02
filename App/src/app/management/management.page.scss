@@ -1,0 +1,58 @@
+.login-page .background {
+  background: linear-gradient(to bottom, var(--ion-color-tertiary) 40%, var(--ion-color-primary)); /* Fondo con gradiente */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1; /* Para colocar detrás del contenido */
+}
+
+.login-page .content {
+  text-align: center;
+  padding-top: 50px; /* Ajusta según sea necesario */
+  color: white;
+}
+
+.login-page .form-box {
+  background-color: white;
+  max-width: 400px; /* Ajusta según sea necesario */
+  margin: 40px auto 0; /* Ajusta el margen superior */
+  padding: 60px 40px;
+  border-radius: 40px;
+  margin-bottom: 40px;
+  overflow: hidden;
+}
+
+.login-page .box-title {
+  margin-top: 0; /* Añadir margen superior al título */
+  margin-bottom: 20px;
+  font-weight: bold; /* Añadir margen inferior al título */
+  color: rgba(29, 32, 108, 0.941); /* Color del texto */
+}
+
+.login-page .form-group {
+  margin: 60px;
+}
+
+.placeholder {
+  margin-bottom: 10px; 
+  color:#3e3f40;
+  /* Añadir espacio entre los campos de entrada */
+}
+
+.submit-button-top {
+  margin-top: 20px;
+  --border-radius: 20px; /* Ajusta el radio de las esquinas para hacerlo más circular */
+  /* Añadir espacio por encima del botón */
+}
+
+.error-message {
+  font-size: 12px; /* Establece el tamaño de fuente más pequeño */
+  color: black; /* Cambia el color del texto a rojo para indicar un mensaje de error */
+  margin-top: 5px; /* Ajusta el margen superior para separarlo del campo de contraseña */
+}
+
+
+
+  
