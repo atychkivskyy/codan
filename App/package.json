@@ -40,7 +40,6 @@
     "ionic2-calendar": "github:twinssbc/Ionic2-Calendar",
     "ionicons": "^7.2.1",
     "mobiscroll-angular": "^4.0.0",
-    "mysql": "^2.18.1",
     "process": "^0.11.10",
     "rxjs": "~7.8.0",
     "stream-browserify": "^3.0.0",
