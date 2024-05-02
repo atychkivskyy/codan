@@ -59,6 +59,28 @@ exports.loginUser = async (req, res) => {
     }
 };
 
+exports.getUsers = async (req, res) => {
+    try {
+        const users = await User.findAll();
+        res.json(users);
+    } catch (error) {
+        res.status(500).send(error.message);
+    }
+}
+
+exports.getUser = async (req, res) => {
+    try {
+        const userId = req.params.id;
+        const user = await User.findByPk(userId);
+        if (!user) {
+            return res.status(404).send('User not found');
+        }
+        res.json(user);
+    } catch (error) {
+        res.status(500).send(error.message);
+    }
+}
+
 exports.updateUser = async (req, res) => {
     try {
         const userId = req.params.id;

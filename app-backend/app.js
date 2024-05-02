@@ -26,6 +26,9 @@ app.get('/api', (req, res) => {
 app.use('/api', userRoutes);
 app.use('/api', metricsRoutes);
 
-sequelize.sync().then(() => {
-    app.listen(port, () => console.log(`Server running on port ${port}`));
+sequelize.sync()
+    .then(() => {
+        app.listen(port, () => console.log(`Server running on port ${port}`));
+    }).catch(err => {
+    console.error('Unable to connect to the database:', err.message || err);
 });

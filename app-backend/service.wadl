@@ -35,6 +35,17 @@
     </resource>
 
     <resource path="/users/{userId}">
+      <param name="userId" style="template" type="xs:string" required="false"/>
+      <method name="GET">
+        <doc title="Get users or user identified by userId info"/>
+        <request>
+          <representation mediaType="application/json"/>
+        </request>
+        <response status="200"/>
+      </method>
+    </resource>
+
+    <resource path="/users/{userId}">
       <param name="userId" style="template" type="xs:string" required="true"/>
       <method name="PATCH">
         <doc title="Update user status or role"/>
