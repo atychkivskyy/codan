@@ -22,7 +22,7 @@
       <ion-buttons slot="start">
         <ion-menu-button></ion-menu-button>
       </ion-buttons>
-      <ion-title>Graphics</ion-title>
+      <ion-title>Management</ion-title>
     </ion-toolbar>
   </ion-header>
 <ion-content class="login-page">
@@ -30,11 +30,11 @@
     <!-- Fondo con gradiente -->
   </div>
   <div class="content">
-    <!-- Recuadro blanco con placeholders y botones -->
-    <div class="form-box">
+    <ion-alert trigger="present-alert" header="Please enter your info" [buttons]="alertButtons" [inputs]="alertInputs"></ion-alert>    
+    <div class="form-box">  
       <ion-fab >
-        <ion-fab-button>
-          <ion-icon name="add"></ion-icon>
+        <ion-fab-button (click)="openAlert()">
+          <ion-icon :icon="add"></ion-icon>
         </ion-fab-button>
       </ion-fab>
       <ion-list-header>
@@ -43,20 +43,18 @@
       <ion-item class="list-header">
         <ion-label class="username">Username</ion-label>
         <ion-label class="isEnabled">Enabled</ion-label>
-        <ion-label class="isAdmin">Role</ion-label>
+        <ion-label class="isAdmin">Admin</ion-label>
       </ion-item>
       <ion-list>
-        <ion-item [button]="true" *ngFor="let user of users" (click)="openActionSheet(user)">
+        <ion-item [button]="true" *ngFor="let user of users">
           <ion-label class="username" >{{ user.username }}</ion-label>
-          <ion-label class="isEnabled">{{ user.isEnabled }}</ion-label>
-          <ion-label class="isAdmin" >{{ user.isAdmin }}</ion-label>
+          <ion-toggle class="isEnabled" [(ngModel)]="user.isEnabled" (ionChange)="toggleUserEnabled(user)"></ion-toggle>
+          <ion-toggle class="isAdmin" [(ngModel)]="user.isAdmin" (ionChange)="toggleUserAdmin(user)"></ion-toggle>
         </ion-item>
       </ion-list>
       <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
         <ion-infinite-scroll-content></ion-infinite-scroll-content>
       </ion-infinite-scroll>
-      <ion-action-sheet trigger="open-action-sheet" header="Actions" [buttons]="actionSheetButtons"></ion-action-sheet>
-
     </div>
   </div>
 

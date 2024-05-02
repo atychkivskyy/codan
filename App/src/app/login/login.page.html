@@ -5,20 +5,14 @@
 
   <div class="content">
     <!-- Imagen -->
-    <img src="assets/icon/codan_logo.jpg" class="centered-image">
+    
 
-    <!-- Texto -->
-    <p class="text">¡Cocina con ingenio, saborea con pasión!</p>
-
-    <!-- Recuadro blanco con placeholders y botones -->
     <div class="form-box">
+      <img src="assets/icon/codan_logo.jpg" class="centered-image">
       <ion-input placeholder="Nombre de usuario" class="placeholder"[(ngModel)]="username" ></ion-input>
       <ion-input placeholder="Contraseña" type="password" class="placeholder"  [(ngModel)]="password"></ion-input>
       <div *ngIf="error" class="error-message">{{ error }}</div>
-      <ion-button expand="block" class="submit-button-top small-button" color="secondary" (click)="login()" >Iniciar sesión</ion-button>
-
-      <p class="text">¿Aún no tienes tu cuenta? <a href="/register" class="register-link">Regístrate</a></p>
+      <ion-button expand="block" class="submit-button-top small-button" color="secondary" (click)="login()" >Login</ion-button>
     </div>
-    
   </div>
 </ion-content>

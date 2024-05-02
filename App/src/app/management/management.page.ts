@@ -1,11 +1,26 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonicModule } from '@ionic/angular';
+import { AlertInput, IonicModule } from '@ionic/angular';
+import { InfiniteScrollCustomEvent } from '@ionic/angular';
 import { AuthService } from '../auth.service';
+import { AlertController } from '@ionic/angular';
+
+
+interface User {
+  username: string;
+  isEnabled: boolean;
+  isAdmin: boolean;
+}
+
+interface Item{
+  username: string;
+  isEnabled: boolean;
+  isAdmin: boolean;
+}
 
 @Component({
-  selector: 'app-registro',
+  selector: 'app-prueba',
   templateUrl: './management.page.html',
   styleUrls: ['./management.page.scss'],
   standalone: true,
@@ -13,67 +28,202 @@ import { AuthService } from '../auth.service';
 })
 export class managementPage implements OnInit {
 
-  username1: string ='';
-  username2: string = '';
-  username3: string = '';
-  password: string='';
-  password2: string='';
-  message1:string='';
-  message2:string='';
+  users: Item[] = []; 
 
-  constructor(private authService: AuthService) { }
+  public alertButtons = ['Create User'];
+  public alertInputs: AlertInput[] = [
+    {
+      name:'username',
+      placeholder: 'username (max 8 characters)',
+      type:'text',
+      attributes: {
+        maxlength: 8,
+      },
+    },
+    {
+      name:'password',
+      placeholder: 'password (max 12 characters)',
+      type:'password',
+      attributes: {
+        maxlength: 12,
+      },
+    },
+    {
+      name:'password2',
+      placeholder: 'repeate password (max 12 characters)',
+      type:'password',
+      attributes: {
+        maxlength: 12,
+      },
+    },
+    
+  ];
+  
+  constructor(private authService: AuthService, private alertController: AlertController) { }
 
   ngOnInit() {
+    this.getUsers();
   }
 
-  createUser(){
-    if (this.password !== this.password2) {   
-      this.message1 = 'Las contraseñas no coinciden'; 
-      return; 
-    }
-    this.authService.checkUsername(this.username1).subscribe(
-      (response: boolean |string) =>{
-        if(response==='Usuario no existente'){
-          this.authService.createUser(this.username1, this.password).subscribe(
-            (response: boolean) =>{
-              if(response===true){
-                this.message1='Usuario creado exitosamente';
-              }else {
-                this.message1 = 'Error al crear el usuario. Por favor, inténtelo de nuevo más tarde.';
-              }
-            }
-          );
-        }else {
-          this.message1 = 'Usuario existente'; 
+  async openAlert() {
+    const alert = await this.alertController.create({
+      header: 'Add new user',
+      inputs: this.alertInputs,
+      buttons: [
+        {
+          text: 'OK',
+          handler: (data) => {
+            this.createUser(data);
+          }
         }
-      }
-    )
-    
+      ]
+    });
+
+    await alert.present();
   }
 
-  enableUser(){
-    this.authService.checkUsername(this.username2).subscribe(
-      (response: boolean |string) =>{
-        if(response==='Usuario no existente'){
-          this.message2=response;
-        }else {
-          this.authService.enableUser(this.username2).subscribe(
-            (response: boolean |string) =>{
-              if(response===true){
-                this.message2='Usuario habilitado';
-              }
-            }
-          )
+  createUser(data:any){
+    this.authService.createUser(data.username,data.password)
+    .subscribe(
+      (response: boolean) => {
+        if(response){
+          console.log('Usuario creado:', data.user);
+          this.getUsers();
         }
+        
+      },
+      error => {
+        console.error('Error al eliminar el usuario:', error);
       }
-    )
-  }
+    );
 
-  disenableUser(){
-
-    
   }
-}
 
   
+  getUsers() {
+    this.authService.getUsers()
+      .then(users => {
+        console.log('Usuarios obtenidos:', users);
+        let lista: Item[] = []; // Inicializa lista como una matriz de Item
+        users.forEach((user: User) => {
+          let item: Item = { // Crea un nuevo objeto Item
+            username: user.username,
+            isEnabled: user.isEnabled, 
+            isAdmin: user.isAdmin 
+          };
+          lista.push(item); // Agrega el nuevo objeto a la lista
+        });
+        this.users = lista; // Asigna la lista de items a this.users
+      })
+      .catch(error => {
+        console.error('Error al obtener los usuarios:', error);
+      });
+  }
 
+  deleteUser(user:Item){
+    this.authService.deleteUser(user.username)
+    .subscribe(
+      (response: boolean) => {
+        if(response){
+          console.log('Usuario eliminado:', user.username);
+          this.users = this.users.filter(user => user.username !== user.username);
+          this.getUsers();
+        }
+        
+      },
+      error => {
+        console.error('Error al eliminar el usuario:', error);
+      }
+    );
+  }
+
+  enableUser(user:Item){
+    this.authService.enableUser(user.username)
+    .subscribe(
+      (response: boolean) => {
+        if(response){
+          console.log('Usuario al actualizar usuario', user.username);
+          this.getUsers();
+        }
+        
+      },
+      error => {
+        console.error('Error al actualizar usuario:', error);
+      }
+    );
+  }
+
+  disableUser(user:Item){
+    this.authService.disableUser(user.username)
+    .subscribe(
+      (response: boolean) => {
+        if(response){
+          console.log('Usuario actualizado:', user.username);
+          this.getUsers();
+        }
+        
+      },
+      error => {
+        console.error('Error al actualizar  usuario:', error);
+      }
+    );
+  }
+
+  removeRoleUser(user:Item){
+      this.authService.removeRoleUser(user.username)
+    .subscribe(
+      (response: boolean) => {
+        if(response){
+          console.log('Usuario actualizado:', user.username);
+          this.getUsers();
+        }
+      },
+      error => {
+        console.error('Error al actualizar  usuario:', error);
+      }
+    );
+  }
+
+  grantRoleUser(user:Item){
+    this.authService.grantRoleUser(user.username)
+  .subscribe(
+    (response: boolean) => {
+      if(response){
+        console.log('Usuario actualizado:', user.username);
+        this.getUsers();
+      }
+    },
+    error => {
+      console.error('Error al actualizar  usuario:', error);
+    }
+  );
+  
+}
+
+  toggleUserEnabled(user: Item) {
+    const newStatus = user.isEnabled;
+    if (newStatus) {
+      this.enableUser(user);
+    } else {
+      this.disableUser(user);
+    }
+  }
+
+  toggleUserAdmin(user: Item){
+    const newStatus = user.isAdmin;
+    if (newStatus) {
+      this.grantRoleUser(user);
+    } else {
+      this.removeRoleUser(user);
+    }
+  }
+  
+
+  onIonInfinite(ev:any) {
+    setTimeout(() => {
+      (ev as InfiniteScrollCustomEvent).target.complete();
+    }, 500);
+  }
+
+  
+}

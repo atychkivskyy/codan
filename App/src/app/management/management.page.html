@@ -11,7 +11,7 @@
         <ion-label>Graphics</ion-label>
       </ion-item>
       <ion-item button href="/management">
-        <ion-label>ManageMent</ion-label>
+        <ion-label>Management</ion-label>
       </ion-item>
     </ion-list>
   </ion-content>
@@ -22,37 +22,40 @@
       <ion-buttons slot="start">
         <ion-menu-button></ion-menu-button>
       </ion-buttons>
-      <ion-title>Graphics</ion-title>
+      <ion-title>Management</ion-title>
     </ion-toolbar>
   </ion-header>
 <ion-content class="login-page">
   <div class="background">
     <!-- Fondo con gradiente -->
   </div>
-
   <div class="content">
-    <!-- Recuadro blanco con placeholders y botones -->
-    <div class="form-box">
-      <div class="form-add">
-        <div class="form-group">
-          <h2 class="box-title">Add user</h2>
-          <ion-input placeholder="Username" class="placeholder"[(ngModel)]="username1" ></ion-input>
-          <ion-input placeholder="Password" type="password" class="placeholder"[(ngModel)]="password" ></ion-input>
-          <ion-input placeholder="Repete password" type="password" class="placeholder"[(ngModel)]="password2" ></ion-input>
-          <div *ngIf="message1" class="error-message">{{message1}}</div>
-          <ion-button expand="block" class="submit-button-top small-button" color="primary" (click)="createUser()">New user</ion-button>
-        </div>
-      </div>
-      <div class="form-group">
-        <h2 class="box-title">Enable user</h2>
-        <ion-input placeholder="Username" class="placeholder"[(ngModel)]="username2" ></ion-input>
-        <ion-button expand="block" class="submit-button-top small-button" color="primary" (click)="enableUser()">Enable user</ion-button>
-      </div>
-      <div class="form-group">
-        <h2 class="box-title">Disable user</h2>
-        <ion-input placeholder="Username" class="placeholder"[(ngModel)]="username3" ></ion-input>
-        <ion-button expand="block" class="submit-button-top small-button" color="primary">Disable user</ion-button>
-      </div>
+    <ion-alert trigger="present-alert" header="Please enter your info" [buttons]="alertButtons" [inputs]="alertInputs"></ion-alert>    
+    <div class="form-box">  
+      <ion-fab >
+        <ion-fab-button (click)="openAlert()">
+          <ion-icon :icon="add"></ion-icon>
+        </ion-fab-button>
+      </ion-fab>
+      <ion-list-header>
+        <ion-title>Usuarios</ion-title>
+      </ion-list-header>
+      <ion-item class="list-header">
+        <ion-label class="username">Username</ion-label>
+        <ion-label class="isEnabled">Enabled</ion-label>
+        <ion-label class="isAdmin">Admin</ion-label>
+      </ion-item>
+      <ion-list>
+        <ion-item [button]="true" *ngFor="let user of users">
+          <ion-label class="username" >{{ user.username }}</ion-label>
+          <ion-toggle class="isEnabled" [(ngModel)]="user.isEnabled" (ionChange)="toggleUserEnabled(user)"></ion-toggle>
+          <ion-toggle class="isAdmin" [(ngModel)]="user.isAdmin" (ionChange)="toggleUserAdmin(user)"></ion-toggle>
+        </ion-item>
+      </ion-list>
+      <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
+        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+      </ion-infinite-scroll>
     </div>
   </div>
+
 </ion-content>

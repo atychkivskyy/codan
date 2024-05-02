@@ -37,10 +37,6 @@ export class LoginPage implements OnInit {
                 this.error = response as string;
               }
             },
-            (error) => {
-              //console.error(error);
-              this.error = 'Error interno del servidor';
-            }
           );
         } else {
           this.error = response as string;

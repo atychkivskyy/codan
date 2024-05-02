@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonicModule } from '@ionic/angular';
+import { AlertInput, IonicModule } from '@ionic/angular';
 import { InfiniteScrollCustomEvent } from '@ionic/angular';
 import { AuthService } from '../auth.service';
-import { ActionSheetController } from '@ionic/angular';
+import { AlertController } from '@ionic/angular';
 
 
 interface User {
@@ -15,8 +15,8 @@ interface User {
 
 interface Item{
   username: string;
-  isEnabled: string;
-  isAdmin: string;
+  isEnabled: boolean;
+  isAdmin: boolean;
 }
 
 @Component({
@@ -27,86 +27,81 @@ interface Item{
   imports: [IonicModule, CommonModule, FormsModule]
 })
 export class PruebaPage implements OnInit {
+
   users: Item[] = []; 
 
+  public alertButtons = ['Create User'];
+  public alertInputs: AlertInput[] = [
+    {
+      name:'username',
+      placeholder: 'username (max 8 characters)',
+      type:'text',
+      attributes: {
+        maxlength: 8,
+      },
+    },
+    {
+      name:'password',
+      placeholder: 'password (max 12 characters)',
+      type:'password',
+      attributes: {
+        maxlength: 12,
+      },
+    },
+    {
+      name:'password2',
+      placeholder: 'repeate password (max 12 characters)',
+      type:'password',
+      attributes: {
+        maxlength: 12,
+      },
+    },
+    
+  ];
   
-  constructor(private authService: AuthService, private actionSheetController: ActionSheetController) { }
+
+  
+  constructor(private authService: AuthService, private alertController: AlertController) { }
 
   ngOnInit() {
     this.getUsers();
   }
 
-  public actionSheetButtons = [
-    {
-      text: 'Admin Role',
-      handler: () => {
-        // Lógica para cambiar el rol a admin
-      }
-    },
-    {
-      text: 'Disable',
-      handler: () => {
-        // Lógica para deshabilitar al usuario
-      }
-    },
-    {
-      text: 'Enable',
-      handler: () => {
-        // Lógica para habilitar al usuario
-      }
-    },
-    {
-      text: 'Delete',
-      role: 'destructive',
-      handler: () => {
-        // Lógica para eliminar al usuario
-      }
-    },
-    {
-      text: 'Cancel',
-      role: 'cancel'
-    }
-  ];
-  
-
-  async openActionSheet(user: Item) {
-    const actionSheet = await this.actionSheetController.create({
-      header: 'Actions',
+  async openAlert() {
+    const alert = await this.alertController.create({
+      header: 'Add new user',
+      inputs: this.alertInputs,
       buttons: [
         {
-          text: 'Admin Role',
-          handler: () => {
-            // Lógica para cambiar el rol a admin
+          text: 'OK',
+          handler: (data) => {
+            this.createUser(data);
           }
-        },
-        {
-          text: 'Disable',
-          handler: () => {
-            this.disableUser(user);
-          }
-        },
-        {
-          text: 'Enable',
-          handler: () => {
-            this.enableUser(user);      
-          }
-        },
-        {
-          text: 'Delete',
-          role: 'destructive',
-          handler: () => {
-            this.deleteUser(user);
-          }
-        },
-        {
-          text: 'Cancel',
-          role: 'cancel'
         }
       ]
     });
-    await actionSheet.present();
+
+    await alert.present();
   }
 
+  createUser(data:any){
+    this.authService.createUser(data.username,data.password)
+    .subscribe(
+      (response: boolean) => {
+        if(response){
+          console.log('Usuario creado:', data.user);
+          this.getUsers();
+        }
+        
+      },
+      error => {
+        console.error('Error al eliminar el usuario:', error);
+      }
+    );
+
+  }
+
+  
   getUsers() {
     this.authService.getUsers()
       .then(users => {
@@ -115,8 +110,8 @@ export class PruebaPage implements OnInit {
         users.forEach((user: User) => {
           let item: Item = { // Crea un nuevo objeto Item
             username: user.username,
-            isEnabled: user.isEnabled ? 'Yes' : 'No', // Convierte booleano a cadena
-            isAdmin: user.isAdmin ? 'admin' : 'employee' // Convierte booleano a cadena
+            isEnabled: user.isEnabled, 
+            isAdmin: user.isAdmin 
           };
           lista.push(item); // Agrega el nuevo objeto a la lista
         });
@@ -149,13 +144,13 @@ export class PruebaPage implements OnInit {
     .subscribe(
       (response: boolean) => {
         if(response){
-          console.log('Usuario eliminado:', user.username);
+          console.log('Usuario al actualizar usuario', user.username);
           this.getUsers();
         }
         
       },
       error => {
-        console.error('Error al eliminar el usuario:', error);
+        console.error('Error al actualizar usuario:', error);
       }
     );
   }
@@ -171,9 +166,58 @@ export class PruebaPage implements OnInit {
         
       },
       error => {
-        console.error('Error al actualizar el usuario:', error);
+        console.error('Error al actualizar  usuario:', error);
       }
     );
+  }
+
+  removeRoleUser(user:Item){
+      this.authService.removeRoleUser(user.username)
+    .subscribe(
+      (response: boolean) => {
+        if(response){
+          console.log('Usuario actualizado:', user.username);
+          this.getUsers();
+        }
+      },
+      error => {
+        console.error('Error al actualizar  usuario:', error);
+      }
+    );
+  }
+
+  grantRoleUser(user:Item){
+    this.authService.grantRoleUser(user.username)
+  .subscribe(
+    (response: boolean) => {
+      if(response){
+        console.log('Usuario actualizado:', user.username);
+        this.getUsers();
+      }
+    },
+    error => {
+      console.error('Error al actualizar  usuario:', error);
+    }
+  );
+  
+}
+
+  toggleUserEnabled(user: Item) {
+    const newStatus = user.isEnabled;
+    if (newStatus) {
+      this.enableUser(user);
+    } else {
+      this.disableUser(user);
+    }
+  }
+
+  toggleUserAdmin(user: Item){
+    const newStatus = user.isAdmin;
+    if (newStatus) {
+      this.grantRoleUser(user);
+    } else {
+      this.removeRoleUser(user);
+    }
   }
   
 

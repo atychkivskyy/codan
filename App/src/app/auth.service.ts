@@ -88,14 +88,13 @@ export class AuthService {
 
   checkUserEnabled(username: string): Observable<boolean |string> {
     return from(this.axiosService.post('/isEnabled', {username})
-    .then(response =>{
-      const isAdmin= response.data.isAdmin == true;
+    .then(() =>{
       return true; 
     })
     .catch(error =>{
       console.error(error);
           if (error.response.status === 404) {
-            return 'Usuario o contraseña incorrectos';
+            return 'Usuario no habilitado';
           } else {
             return 'Error interno del servidor';
           }
@@ -127,6 +126,30 @@ export class AuthService {
 
   deleteUser(username:string):Observable<boolean>{
     return from(this.axiosService.post('/deleteUser', {username})
+    .then(()=>{
+      return true; 
+    })
+    .catch(error =>{
+      console.log(error);
+      return false;
+    }));
+
+  }
+
+  grantRoleUser(username:string):Observable<boolean>{
+    return from(this.axiosService.post('/grantRoleUser', {username})
+    .then(()=>{
+      return true; 
+    })
+    .catch(error =>{
+      console.log(error);
+      return false;
+    }));
+
+  }
+
+  removeRoleUser(username:string):Observable<boolean>{
+    return from(this.axiosService.post('/removeRoleUser', {username})
     .then(()=>{
       return true; 
     })

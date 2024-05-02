@@ -176,6 +176,37 @@ app.post('/disableUser', async (req, res) => {
     });
 });
 
+app.post('/grantRoleUser', async (req, res) => {
+    const { username } = req.body;
+    console.log(username);
+
+    const query = `UPDATE usuarios SET isAdmin = 1 WHERE username = ?`;
+
+    connection.query(query, [username], (err, results) => {
+        if (err) {
+            console.error('Error al dar privilegios al usuario:', err);
+            return res.status(500).json({ error: 'Error interno del servidor' });
+        }
+        return res.status(200).json({ message: 'Usuario habilitado exitosamente' });
+    });
+});
+
+app.post('/removeRoleUser', async (req, res) => {
+    const { username } = req.body;
+    console.log(username);
+
+    const query = `UPDATE usuarios SET isAdmin = 0 WHERE username = ?`;
+
+    connection.query(query, [username], (err, results) => {
+        if (err) {
+            console.error('Error al quitar privilegios al usuario:', err);
+            return res.status(500).json({ error: 'Error interno del servidor' });
+        }
+        return res.status(200).json({ message: 'Usuario habilitado exitosamente' });
+    });
+});
+
+
 const PORT = 826;
 app.listen(PORT, () => {
     console.log(`Servidor en ejecución en http://localhost:${PORT}`);
