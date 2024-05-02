@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application xmlns="http://wadl.dev.java.net/2009/02"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://wadl.dev.java.net/2009/02 http://wadl.dev.java.net/2009/02/wadl.xsd">
+  <doc title="Node.js/Express API for User Management and InfluxDB Metrics Querying"/>
+
+  <resources base="http://10.100.0.101:8826/api">
+
+    <!-- User Management Resources -->
+    <resource path="/register">
+      <method name="POST">
+        <doc title="Register a new user"/>
+        <request>
+          <representation mediaType="application/json">
+            <param name="username" style="query" type="xs:string" required="true"/>
+            <param name="password" style="query" type="xs:string" required="true"/>
+            <param name="isAdmin" style="query" type="xs:boolean"/>
+          </representation>
+        </request>
+        <response status="201"/>
+      </method>
+    </resource>
+
+    <resource path="/login">
+      <method name="POST">
+        <doc title="User login"/>
+        <request>
+          <representation mediaType="application/json">
+            <param name="username" style="query" type="xs:string" required="true"/>
+            <param name="password" style="query" type="xs:string" required="true"/>
+          </representation>
+        </request>
+        <response status="200"/>
+      </method>
+    </resource>
+
+    <resource path="/users/{userId}">
+      <param name="userId" style="template" type="xs:string" required="false"/>
+      <method name="GET">
+        <doc title="Get users or user identified by userId info"/>
+        <request>
+          <representation mediaType="application/json"/>
+        </request>
+        <response status="200"/>
+      </method>
+    </resource>
+
+    <resource path="/users/{userId}">
+      <param name="userId" style="template" type="xs:string" required="true"/>
+      <method name="PATCH">
+        <doc title="Update user status or role"/>
+        <request>
+          <representation mediaType="application/json">
+            <param name="isEnabled" style="query" type="xs:boolean"/>
+            <param name="isAdmin" style="query" type="xs:boolean"/>
+          </representation>
+        </request>
+        <response status="200"/>
+      </method>
+      <method name="DELETE">
+        <doc title="Delete a user"/>
+        <response status="200"/>
+      </method>
+    </resource>
+
+    <!-- InfluxDB Metrics Querying -->
+    <resource path="/metrics">
+      <method name="GET">
+        <doc title="Query InfluxDB metrics"/>
+        <request>
+          <param name="field" style="query" type="xs:string" required="true"/>
+          <param name="timeRangeStart" style="query" type="xs:string" required="true"/>
+        </request>
+        <response status="200">
+          <representation mediaType="application/json"/>
+        </response>
+      </method>
+    </resource>
+
+  </resources>
+</application>
