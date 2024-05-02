@@ -40,8 +40,13 @@
       <ion-list-header>
         <ion-title>Usuarios</ion-title>
       </ion-list-header>
+      <ion-item class="list-header">
+        <ion-label class="username">Username</ion-label>
+        <ion-label class="isEnabled">Enabled</ion-label>
+        <ion-label class="isAdmin">Role</ion-label>
+      </ion-item>
       <ion-list>
-        <ion-item [button]="true" *ngFor="let user of users" (click)="openActionSheet()">
+        <ion-item [button]="true" *ngFor="let user of users" (click)="openActionSheet(user)">
           <ion-label class="username" >{{ user.username }}</ion-label>
           <ion-label class="isEnabled">{{ user.isEnabled }}</ion-label>
           <ion-label class="isAdmin" >{{ user.isAdmin }}</ion-label>

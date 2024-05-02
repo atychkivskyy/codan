@@ -114,10 +114,20 @@ export class AuthService {
 
   }
 
-  disenableUser(username:string): Observable<any>{
-    return from(this.axiosService.post('/disenableUser', {username})
-    .then(response =>{
-      const isAdmin= response.data.isAdmin == true;
+  disableUser(username:string): Observable<boolean>{
+    return from(this.axiosService.post('/disableUser', {username})
+    .then(()=>{
+      return true; 
+    })
+    .catch(error =>{
+      console.log(error);
+      return false;
+    }));
+  }
+
+  deleteUser(username:string):Observable<boolean>{
+    return from(this.axiosService.post('/deleteUser', {username})
+    .then(()=>{
       return true; 
     })
     .catch(error =>{
@@ -126,7 +136,8 @@ export class AuthService {
     }));
 
   }
+}
 
  
-}
+
 

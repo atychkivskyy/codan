@@ -29,44 +29,82 @@ interface Item{
 export class PruebaPage implements OnInit {
   users: Item[] = []; 
 
-  public actionSheetButtons = [
-    {
-      text: 'Admin Role',
-      data: {
-        action: 'share',
-      },
-    },
-    {
-      text: 'Disable',
-      data: {
-        action: 'share',
-      },
-    },
-    {
-      text: 'Enable',
-      data: {
-        action: 'share',
-      },
-    },
-    {
-      text: 'Delete',
-      role: 'destructive',
-      data: {
-        action: 'delete',
-      },
-    },
-    {
-      text: 'Cancel',
-      role: 'cancel',
-      data: {
-        action: 'cancel',
-      },
-    },
-  ];
+  
   constructor(private authService: AuthService, private actionSheetController: ActionSheetController) { }
 
   ngOnInit() {
     this.getUsers();
+  }
+
+  public actionSheetButtons = [
+    {
+      text: 'Admin Role',
+      handler: () => {
+        // Lógica para cambiar el rol a admin
+      }
+    },
+    {
+      text: 'Disable',
+      handler: () => {
+        // Lógica para deshabilitar al usuario
+      }
+    },
+    {
+      text: 'Enable',
+      handler: () => {
+        // Lógica para habilitar al usuario
+      }
+    },
+    {
+      text: 'Delete',
+      role: 'destructive',
+      handler: () => {
+        // Lógica para eliminar al usuario
+      }
+    },
+    {
+      text: 'Cancel',
+      role: 'cancel'
+    }
+  ];
+  
+
+  async openActionSheet(user: Item) {
+    const actionSheet = await this.actionSheetController.create({
+      header: 'Actions',
+      buttons: [
+        {
+          text: 'Admin Role',
+          handler: () => {
+            // Lógica para cambiar el rol a admin
+          }
+        },
+        {
+          text: 'Disable',
+          handler: () => {
+            this.disableUser(user);
+          }
+        },
+        {
+          text: 'Enable',
+          handler: () => {
+            this.enableUser(user);      
+          }
+        },
+        {
+          text: 'Delete',
+          role: 'destructive',
+          handler: () => {
+            this.deleteUser(user);
+          }
+        },
+        {
+          text: 'Cancel',
+          role: 'cancel'
+        }
+      ]
+    });
+    await actionSheet.present();
   }
 
   getUsers() {
@@ -77,8 +115,8 @@ export class PruebaPage implements OnInit {
         users.forEach((user: User) => {
           let item: Item = { // Crea un nuevo objeto Item
             username: user.username,
-            isEnabled: user.isEnabled ? 'habilitado' : 'no habilitado', // Convierte booleano a cadena
-            isAdmin: user.isAdmin ? 'admin' : 'no admin' // Convierte booleano a cadena
+            isEnabled: user.isEnabled ? 'Yes' : 'No', // Convierte booleano a cadena
+            isAdmin: user.isAdmin ? 'admin' : 'employee' // Convierte booleano a cadena
           };
           lista.push(item); // Agrega el nuevo objeto a la lista
         });
@@ -88,6 +126,55 @@ export class PruebaPage implements OnInit {
         console.error('Error al obtener los usuarios:', error);
       });
   }
+
+  deleteUser(user:Item){
+    this.authService.deleteUser(user.username)
+    .subscribe(
+      (response: boolean) => {
+        if(response){
+          console.log('Usuario eliminado:', user.username);
+          this.users = this.users.filter(user => user.username !== user.username);
+          this.getUsers();
+        }
+        
+      },
+      error => {
+        console.error('Error al eliminar el usuario:', error);
+      }
+    );
+  }
+
+  enableUser(user:Item){
+    this.authService.enableUser(user.username)
+    .subscribe(
+      (response: boolean) => {
+        if(response){
+          console.log('Usuario eliminado:', user.username);
+          this.getUsers();
+        }
+        
+      },
+      error => {
+        console.error('Error al eliminar el usuario:', error);
+      }
+    );
+  }
+
+  disableUser(user:Item){
+    this.authService.disableUser(user.username)
+    .subscribe(
+      (response: boolean) => {
+        if(response){
+          console.log('Usuario actualizado:', user.username);
+          this.getUsers();
+        }
+        
+      },
+      error => {
+        console.error('Error al actualizar el usuario:', error);
+      }
+    );
+  }
   
 
   onIonInfinite(ev:any) {
@@ -96,11 +183,5 @@ export class PruebaPage implements OnInit {
     }, 500);
   }
 
-  async openActionSheet() {
-    const actionSheet = await this.actionSheetController.create({
-      header: 'Actions',
-      buttons: this.actionSheetButtons,
-    });
-    await actionSheet.present();
-  }
+  
 }

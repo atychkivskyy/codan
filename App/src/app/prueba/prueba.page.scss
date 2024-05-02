@@ -37,6 +37,21 @@
     right: 20px; 
   }
 
+  list-header {
+    padding-top: 10px; /* Espacio vertical arriba */
+    padding-bottom: 10px; 
+    margin: 10px;
+    /* Espacio vertical abajo */
+  }
+  
+  /* Estilo para las etiquetas de usuario */
+  .username,
+  .isEnabled,
+  .isAdmin {
+    margin: 10px;
+     /* Espacio vertical entre etiquetas */
+  }
+
   
   
     

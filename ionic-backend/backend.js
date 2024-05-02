@@ -102,10 +102,25 @@ app.post('/isEnabled', async (req, res) => {
     });
 });
 
+app.post('/deleteUser', async (req, res) => {
+    const { username } = req.body;
+    const query = `DELETE FROM usuarios WHERE username = ?`;
+    connection.query(query, [username], (err, results) => {
+        if (err) {
+            console.error('Error al ejecutar DELETE:', err);
+            return res.status(500).json({ error: 'Error interno del servidor' });
+        }
+        if (results.affectedRows === 0) {
+            return res.status(404).json({ error: 'Usuario no encontrado' });
+        }
+        res.json({ message: 'Usuario eliminado correctamente' });
+    });
+});
+
+
 app.post('/createUser', async (req, res) => {
     const { username, password } = req.body;
     const query = `INSERT INTO usuarios (username, password, isEnabled, isAdmin) VALUES (?, ?, false, false)`;
-    console.log("he entrado");
     connection.query(query, [username, password], (err, results) => {
         if (err) {
             console.error('Error al insertar el nuevo usuario:', err);
@@ -134,6 +149,8 @@ app.post('/user', (req, res) => {
 
 app.post('/enableUser', async (req, res) => {
     const { username } = req.body;
+    console.log(username);
+
     const query = `UPDATE usuarios SET isEnabled = 1 WHERE username = ?`;
 
     connection.query(query, [username], (err, results) => {
@@ -145,9 +162,10 @@ app.post('/enableUser', async (req, res) => {
     });
 });
 
-app.post('/disenableUser', async (req, res) => {
+app.post('/disableUser', async (req, res) => {
     const { username } = req.body;
     const query = `UPDATE usuarios SET isEnabled = false WHERE username = ?`;
+    console.log(username);
 
     connection.query(query, [username], (err, results) => {
         if (err) {
