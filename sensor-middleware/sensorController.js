@@ -6,7 +6,7 @@ exports.test = (req, res) => {
     return res.status(200).send("Hello from Sensor Controller");
 };
 
-exports.retrieveData = async (req, res) => {
+exports.retrieveData = async (req, res, next) => {
     let timestamp = new Date();
     let temperature = {
         sensor_id: req.body.sensor_id, temperature: req.body.temperature, time: timestamp
@@ -40,7 +40,7 @@ exports.retrieveData = async (req, res) => {
             console.error('Failed to publish message:', error);
         }
     });
-    return res.status(200).send("Data received");
+    return next();
 }
 
 exports.home = (req, res) => {
