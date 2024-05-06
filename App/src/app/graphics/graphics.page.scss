@@ -27,9 +27,10 @@
   background-color: white;
   max-width: 60%;
   margin: 40px auto 0;
-  padding: 60px 40px;
+  padding: 40px 20px;
   border-radius: 40px;
   height: auto;
+
 }
 
 /* Agregamos estilos para el título */
@@ -40,25 +41,27 @@
   /* Centramos horizontalmente */
   transform: translateX(-50%); /* Centramos horizontalmente */
   margin: 0;
-  padding: 10px 20px;
  
 }
 
+/* Estilos para el tamaño de las gráficas */
 .login-page .chart-canvas {
   margin-top: 10px;
-  width: 100%; /* Ajusta el ancho del canvas */
-  height: auto; /* Ajusta la altura del canvas */
-  max-height: 300px; /* Altura máxima para dispositivos móviles */
+  width: 90%; /* Ajustar el ancho al 90% del contenedor */
+  height: auto; /* Permitir que la altura se ajuste automáticamente */
+  min-height: 300px; /* Altura mínima para garantizar suficiente espacio para las gráficas */
+  max-height: 500px; /* Altura máxima para evitar que las gráficas sean demasiado grandes */
 }
+
 
 /* Media query para dispositivos móviles */
 @media only screen and (max-width: 600px) {
   .login-page .form-box {
-    max-width: 90%; /* Reducimos el ancho para dispositivos móviles */
+    max-width: 95%; /* Reducimos el ancho para dispositivos móviles */
   }
 
   .login-page .chart-canvas {
-    max-height: 200px; /* Altura máxima reducida para dispositivos móviles */
+    max-height: 100%; /* Altura máxima reducida para dispositivos móviles */
   }
 }
 
