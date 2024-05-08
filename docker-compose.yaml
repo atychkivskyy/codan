@@ -36,20 +36,6 @@ services:
       interval: 30s
       timeout: 10s
       retries: 3
-
-  token-bucket-queue:
-    image: eclipse-mosquitto:latest
-    container_name: token-bucket-queue
-    ports:
-      - "1884:1883" # different port for this service 1884
-      - "9002:9001" # different port for this service 9002
-    restart: always
-    volumes:
-      - ./mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf
-      - ./mosquitto/log:/mosquitto/log/
-      - mosquitto-data:/mosquitto/data/
-    networks:
-      - codan
         
   token-bucket:
     build: ./redis

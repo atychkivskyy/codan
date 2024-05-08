@@ -1,49 +1,53 @@
 const redis = require('redis');
-const mqtt = require('mqtt');
 
-const MQTT_BROKER_URL = 'mqtt://mosquitto:1884';
+let redisClient = undefined;
 
-const MQTTclient = mqtt.connect(MQTT_BROKER_URL);
+async function initializeRedisClient() {
+  // read the Redis connection URL from the envs
+  let redisURL = process.env.REDIS_URI || 'redis://token-bucket:6379'
 
-// Create a Redis client
-const redisClient = redis.createClient({
-    url: 'redis://redis:6379' // Cambiar con variables de entorno
-});
+    // create the Redis client object
+    redisClient = redis.createClient({ url: redisURL }).on("error", (e) => {
+      console.error(`Failed to create the Redis client with error:`);
+      console.error(e);
+    });
 
-// MQTT client events
+    try {
+      // connect to the Redis server
+      await redisClient.connect();
+      console.log(`Connected to Redis successfully!`);
+    } catch (e) {
+      console.error(`Connection to Redis failed with error:`);
+      console.error(e);
+    }
+}
 
-MQTTclient.on('connect', () => {
-    console.log('Connected to Mosquitto broker');
-});
+async function readData(key) {
+  let value = undefined;
+  value = await redisClient.get(key);
+  return value;
+}
 
-MQTTclient.on('reconnect', () => {
-    console.log('Reconnecting to Mosquitto broker...');
-});
+async function takeToken() {
+  const out = await redisClient.DECR('tokens');;
+  
+  console.log('Token taken',out );
+  
+}
 
-MQTTclient.on('error', (error) => {
-    console.error('MQTT connection error:', error);
-    MQTTclient.reconnect();
-});
-
-MQTTclient.on('offline', () => {
-    console.log('MQTT client is offline');
-});
-
-MQTTclient.on('close', () => {
-    console.log('Connection to Mosquitto broker closed');
-});
-
-// Redis client events
-
-redisClient.on('connect', () => {
-    console.log('Connected to Redis - Token Bucket');
-});
-
-redisClient.on('error', (error) => {
-    console.error('Error connecting to Redis:', error);
-});
+async function addToken() {
+  const out = await redisClient.INCRBY('tokens', 1);
+  
+  console.log('Token added',out );
+  
+}
 
 module.exports = {
-    redisClient,
-    client
+    initializeRedisClient,
+    readData,
+    addToken,
+    takeToken
 };
+
+//https://stackoverflow.com/questions/73253638/how-to-export-redis-in-nodejs-to-different-routes
+//https://semaphoreci.com/blog/nodejs-caching-layer-redis

@@ -1,67 +1,56 @@
-const redisClient = require('./tokenBucketConnections');
+const { redisClient, readData, addToken, takeToken } = require('./tokenBucketConnections');
 
-function checkPacketSize(request, maxSize) {
-    const size = request.body.length;
+function checkPacketSize(size, maxSize) {
+
+    console.log('Packet size:', size);
 
     if (size > maxSize) {
-        return false;
-    }
-    else {
         return true;
     }
+    else {
+        return false;
+    }
 }
 
-function retrieveNumTokens() {
-    redisClient.get('tokens', (error, numTokens) => {
-        if (error) {
-            console.error('Error retrieving number of tokens:', error);
-        }
-        else {
-            console.log('Number of tokens:', numTokens);
-            return numTokens;
-        }
-    });
+async function retrieveNumTokens() {
+    let numTokens = await readData('tokens');
+    console.log('Number of tokens:', numTokens);
 
+    return numTokens;
 }
 
-function checkTokens(req, res, next) {
+
+async function checkTokens(req, res, next) {
 
     const PACKET_SIZE = process.env.PACKET_SIZE || 1000;
+    var size = Object.keys(req).length;
 
-    if (checkPacketSize(req, PACKET_SIZE)) {
+
+    if (checkPacketSize(size, PACKET_SIZE)) {
         return res.status(413).send("Request too large"); 
     }
     else{
-        if (retrieveNumTokens() > 0) {
-            redisClient.decr('tokens', (error) => {
-                if (error) {
-                    console.error('Error decrementing tokens:', error);
-                }
-                else {
-                    return next();
-                }
-            });
+        const numTokens = await retrieveNumTokens();
+ 
+        if (numTokens > 0) {
+            await takeToken();
+            return next();
         }
         else {
             return res.status(429).send("Too many requests");
         }
     }
+}
+
+
+async function giveBackToken(req, res) {
+    addToken();
+    return res.status(200).send("Data received");
     
 }
 
-function addToken(req, res) {
-    redisClient.incrby('tokens', 1, (error) => {
-        if (error) {
-            console.error('Error adding tokens:', error);
-        }
-        else {
-            console.log('Token added');
-            res.status(200).send("Data received");
-        }
-    });
-}
 
 module.exports = {
     checkTokens,
-    addToken
+    giveBackToken
 };
