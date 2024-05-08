@@ -5,6 +5,6 @@ redis-server  &
 sleep 5
 
 #Update with n of tokens
-redis-cli SET tokens $TOKENS
+redis-cli SET tokens "$TOKENS"
 
 tail -f /dev/null

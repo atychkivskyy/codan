@@ -40,6 +40,7 @@ services:
   token-bucket:
     build: ./redis
     container_name: token-bucket
+    restart: always
     environment:
       TOKENS: ${TOKENS}
     ports:
