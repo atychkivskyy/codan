@@ -1,7 +1,5 @@
 package es.codan.clientesoap;
 
-import java.util.GregorianCalendar;
-
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
@@ -22,16 +20,21 @@ public class MetricsClient extends WebServiceGatewaySupport {
   public GetMeanResponse getMean(String sensorid, String metric, String date) {
 
     GetMeanRequest request = new GetMeanRequest();
+    if (sensorid == null) { 
+    	sensorid = "";
+    }
     request.setSensorId(sensorid);
     request.setMetric(metric);
-    XMLGregorianCalendar xmlDate;
-	try {
-		xmlDate = DatatypeFactory.newInstance().newXMLGregorianCalendar(date);
-		request.setDate(xmlDate);
-	} catch (DatatypeConfigurationException e) {
-		e.printStackTrace();
-	}
-
+    XMLGregorianCalendar xmlDate = null;
+    if (date != null && !("").equals(date.trim())) {
+		try {
+			xmlDate = DatatypeFactory.newInstance().newXMLGregorianCalendar(date);
+			request.setDate(xmlDate);
+		} catch (DatatypeConfigurationException e) {
+			e.printStackTrace();
+		}
+    }
+	request.setDate(xmlDate);
     log.info("Requesting value for sensor " + sensorid + ", metric " + metric + " and date " + date);
 
     GetMeanResponse response = (GetMeanResponse) getWebServiceTemplate()
