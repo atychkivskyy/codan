@@ -17,7 +17,7 @@ public class MeanConfiguration {
   }
 
   @Bean
-  public MetricsClient countryClient(Jaxb2Marshaller marshaller) {
+  public MetricsClient metricsClient(Jaxb2Marshaller marshaller) {
     MetricsClient client = new MetricsClient();
     client.setDefaultUri("http://localhost:8080/");
     client.setMarshaller(marshaller);
