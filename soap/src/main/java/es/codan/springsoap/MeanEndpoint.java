@@ -17,7 +17,7 @@ public class MeanEndpoint {
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "getMeanRequest")
     @ResponsePayload
-    public GetMeanResponse getMetric(@RequestPayload GetMeanRequest request) {
+    public GetMeanResponse getResponse(@RequestPayload GetMeanRequest request) {
         GetMeanResponse response = new GetMeanResponse();
         String date = "";
         if (request.getDate() != null) {
@@ -31,6 +31,7 @@ public class MeanEndpoint {
         Mean mean = new Mean();
         mean.setSensorId(request.getSensorId());
         mean.setMetric(request.getMetric());
+        mean.setDate(request.getDate());
         mean.setValue(value);
         
         response.setMean(mean);

@@ -3,6 +3,7 @@ package es.codan.springsoap;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.ws.config.annotation.EnableWs;
@@ -14,13 +15,14 @@ import org.springframework.xml.xsd.XsdSchema;
 
 @EnableWs
 @Configuration
+@ComponentScan(basePackages = "es.codan.springsoap")
 public class WebServiceConfig extends WsConfigurerAdapter {
 
     @Bean
     public ServletRegistrationBean<MessageDispatcherServlet> messageDispatcherServlet(ApplicationContext applicationContext) {
         MessageDispatcherServlet servlet = new MessageDispatcherServlet();
         servlet.setApplicationContext(applicationContext);
-        servlet.setTransformWsdlLocations(false);
+        servlet.setTransformWsdlLocations(true);
         return new ServletRegistrationBean<>(servlet, "/*");
     }
 
@@ -28,7 +30,7 @@ public class WebServiceConfig extends WsConfigurerAdapter {
     public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema metricsSchema) {
         DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
         wsdl11Definition.setPortTypeName("MetricsPort");
-        wsdl11Definition.setLocationUri("/");
+        wsdl11Definition.setLocationUri("/metrics.wsdl");
         wsdl11Definition.setTargetNamespace("http://schemas.xmlsoap.org/wsdl/");
         wsdl11Definition.setSchema(metricsSchema);
         return wsdl11Definition;

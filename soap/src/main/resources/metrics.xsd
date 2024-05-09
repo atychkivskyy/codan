@@ -24,6 +24,7 @@
         <xs:sequence>
             <xs:element name="sensor_id" type="xs:string"/>
             <xs:element name="metric" type="xs:string"/>
+            <xs:element name="date" type="xs:date"/>
             <xs:element name="value" type="xs:string"/>
         </xs:sequence>
     </xs:complexType>

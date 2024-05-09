@@ -50,6 +50,7 @@ public class InfluxDBConnectionClass {
             for (FluxRecord fluxRecord : records) {
                 System.out.print("sensor_id : " + fluxRecord.getValueByKey("sensor_id") + " | ");
                 System.out.print("metric : " + fluxRecord.getValueByKey("_field") + " | ");
+                System.out.print("date : " + fluxRecord.getValueByKey("_date") + " | ");
                 System.out.println("mean : " + fluxRecord.getValueByKey("_value") + " | ");
                 result = fluxRecord.getValueByKey("_value").toString();
             }
