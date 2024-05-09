@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Resultado de Consulta en ruta static</title>
+</head>
+<body>
+	<h1>Resultado de la consulta</h1>
+    <span th:text="|SensorId: ${response.mean.sensorId}|" /><br>
+	<span th:text="|Metric: ${response.mean.metric}|" /> <br>
+	<span th:text="|Date: ${response.mean.date}|" /> <br>
+	<span th:text="|Value: ${response.mean.value}|" />
+</body>
+</html>
