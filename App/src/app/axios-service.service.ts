@@ -7,7 +7,7 @@ import axios, {AxiosRequestConfig, AxiosResponse} from "axios"
 export class AxiosServiceService {
 
   constructor() { 
-    axios.defaults.baseURL = "http://localhost:826";
+    axios.defaults.baseURL = "http://localhost:8826";
     axios.defaults.headers['Content-Type'] = "application/json";
     axios.interceptors.request.use(
       (config:any) =>{
@@ -17,8 +17,7 @@ export class AxiosServiceService {
           config.headers.Authorization = `Bearer ${token}`
         }
         return config;
-      },
-      error => Promise.reject(error)
+      }
     );
   }
 
@@ -37,4 +36,14 @@ export class AxiosServiceService {
   public post(url: string, data: any, config?: AxiosRequestConfig):Promise<AxiosResponse<any>>{
     return axios.post(url, data, config);
   }
+
+  public patch(url: string, data: any, config?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
+    return axios.patch(url, data, config);
+  }
+  
+  public delete(url: string,config?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
+    return axios.delete(url,  config);
+  }
+
+
 }

@@ -186,4 +186,3 @@ volumes:
   grafana-data:
   influxdb-data:
   mysql-data:
-

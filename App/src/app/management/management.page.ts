@@ -8,12 +8,14 @@ import { AlertController } from '@ionic/angular';
 
 
 interface User {
+  id:number,
   username: string;
   isEnabled: boolean;
   isAdmin: boolean;
 }
 
 interface Item{
+  id:number,
   username: string;
   isEnabled: boolean;
   isAdmin: boolean;
@@ -82,6 +84,27 @@ export class managementPage implements OnInit {
     await alert.present();
   }
 
+  async deleteAlert(id:number) {
+    const alert = await this.alertController.create({
+      header: 'Are you sure you want to delete this user?',
+      buttons: [
+        {
+          text: 'Yes',
+          handler: () => {
+            this.deleteUser(id);
+          }
+        },
+        {
+          text: 'No',
+          handler: () => {
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
   createUser(data:any){
     this.authService.createUser(data.username,data.password)
     .subscribe(
@@ -106,27 +129,29 @@ export class managementPage implements OnInit {
         console.log('Usuarios obtenidos:', users);
         let lista: Item[] = []; // Inicializa lista como una matriz de Item
         users.forEach((user: User) => {
-          let item: Item = { // Crea un nuevo objeto Item
+          let item: Item = { 
+            id: user.id,
             username: user.username,
             isEnabled: user.isEnabled, 
             isAdmin: user.isAdmin 
           };
-          lista.push(item); // Agrega el nuevo objeto a la lista
+          lista.push(item); 
         });
-        this.users = lista; // Asigna la lista de items a this.users
+        this.users = lista; 
       })
       .catch(error => {
         console.error('Error al obtener los usuarios:', error);
       });
   }
 
-  deleteUser(user:Item){
-    this.authService.deleteUser(user.username)
+  deleteUser(id:number){
+
+    this.authService.deleteUser(id)
     .subscribe(
       (response: boolean) => {
         if(response){
-          console.log('Usuario eliminado:', user.username);
-          this.users = this.users.filter(user => user.username !== user.username);
+          console.log('Usuario eliminado:', id);
+          this.users = this.users.filter(user => user.id !== id);
           this.getUsers();
         }
         
@@ -138,7 +163,7 @@ export class managementPage implements OnInit {
   }
 
   enableUser(user:Item){
-    this.authService.enableUser(user.username)
+    this.authService.enableUser(user.id)
     .subscribe(
       (response: boolean) => {
         if(response){
@@ -154,7 +179,7 @@ export class managementPage implements OnInit {
   }
 
   disableUser(user:Item){
-    this.authService.disableUser(user.username)
+    this.authService.disableUser(user.id)
     .subscribe(
       (response: boolean) => {
         if(response){
@@ -170,7 +195,7 @@ export class managementPage implements OnInit {
   }
 
   removeRoleUser(user:Item){
-      this.authService.removeRoleUser(user.username)
+      this.authService.removeRoleUser(user.id)
     .subscribe(
       (response: boolean) => {
         if(response){
@@ -185,7 +210,7 @@ export class managementPage implements OnInit {
   }
 
   grantRoleUser(user:Item){
-    this.authService.grantRoleUser(user.username)
+    this.authService.grantRoleUser(user.id)
   .subscribe(
     (response: boolean) => {
       if(response){
