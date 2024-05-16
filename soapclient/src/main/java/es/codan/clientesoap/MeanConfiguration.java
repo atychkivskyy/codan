@@ -19,7 +19,8 @@ public class MeanConfiguration {
   @Bean
   public MetricsClient metricsClient(Jaxb2Marshaller marshaller) {
     MetricsClient client = new MetricsClient();
-    client.setDefaultUri("http://localhost:8080/");
+        
+//    client.setDefaultUri("http://localhost:8080/");
     client.setMarshaller(marshaller);
     client.setUnmarshaller(marshaller);
     return client;

@@ -1,12 +1,16 @@
 package es.codan.clientesoap;
 
+import java.io.IOException;
+import java.util.Properties;
+
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.support.PropertiesLoaderUtils;
 import org.springframework.ws.client.core.support.WebServiceGatewaySupport;
 import org.springframework.ws.soap.client.core.SoapActionCallback;
 
@@ -37,12 +41,24 @@ public class MetricsClient extends WebServiceGatewaySupport {
 	request.setDate(xmlDate);
     log.info("Requesting value for sensor " + sensorid + ", metric " + metric + " and date " + date);
 
-    GetMeanResponse response = (GetMeanResponse) getWebServiceTemplate()
-        .marshalSendAndReceive("http://localhost:8080/metrics.wsdl", request,
-            new SoapActionCallback(
-                "GetMeanRequest"));
+    
+    try {
+        // Cargar el archivo de propiedades desde el classpath
+        Properties properties = PropertiesLoaderUtils.loadProperties(new ClassPathResource("soap.properties"));
 
-    return response;
+        // Acceder a las propiedades
+    	String rutaWsdl = properties.getProperty("soap.url")+"/metrics.wsdl";
+	    GetMeanResponse response = (GetMeanResponse) getWebServiceTemplate()
+	        .marshalSendAndReceive(rutaWsdl, request,
+	            new SoapActionCallback(
+	                "GetMeanRequest"));
+
+    return response;   	
+
+    } catch (IOException e) {
+		e.printStackTrace();
+		return null;
+	}
   }
 
 }
