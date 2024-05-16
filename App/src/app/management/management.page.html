@@ -5,7 +5,6 @@
     </ion-toolbar>
   </ion-header>
   <ion-content class="ion-padding" >
-    <!-- Lista de botones en el menú -->
     <ion-list>
       <ion-item button href="/graphics">
         <ion-label>Graphics</ion-label>
@@ -27,7 +26,6 @@
   </ion-header>
 <ion-content class="login-page">
   <div class="background">
-    <!-- Fondo con gradiente -->
   </div>
   <div class="content">
     <ion-alert trigger="present-alert" header="Please enter your info" [buttons]="alertButtons" [inputs]="alertInputs"></ion-alert>    
@@ -46,8 +44,8 @@
         <ion-label class="isAdmin">Admin</ion-label>
       </ion-item>
       <ion-list>
-        <ion-item [button]="true" *ngFor="let user of users">
-          <ion-label class="username" >{{ user.username }}</ion-label>
+        <ion-item [button]="true" *ngFor="let user of users" >
+          <ion-label (click)="deleteAlert(user.id)" class="username" >{{ user.username }} </ion-label>
           <ion-toggle class="isEnabled" [(ngModel)]="user.isEnabled" (ionChange)="toggleUserEnabled(user)"></ion-toggle>
           <ion-toggle class="isAdmin" [(ngModel)]="user.isAdmin" (ionChange)="toggleUserAdmin(user)"></ion-toggle>
         </ion-item>

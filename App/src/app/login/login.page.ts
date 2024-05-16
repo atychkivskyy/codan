@@ -28,19 +28,11 @@ export class LoginPage implements OnInit {
   login() {
     this.authService.login(this.username, this.password).subscribe(
       (response: boolean | string) => {
-        if (response === true) {
-          this.authService.checkUserEnabled(this.username).subscribe(
-            (response) => {
-              if (response === true) {
-                this.router.navigate(['/graphics']);
-              } else {
-                this.error = response as string;
-              }
-            },
-          );
-        } else {
-          this.error = response as string;
-        }
+      if (response === true) {
+        this.router.navigate(['/graphics']);
+      } else {
+        this.error = response as string;
+      }
       },
       (error) => {
         console.error(error);

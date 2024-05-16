@@ -10,17 +10,19 @@ const generateToken = user => {
 };
 
 exports.registerUser = async (req, res) => {
-    const {username, password, isAdmin} = req.body;
+    const {username, password} = req.body;
+    console.log(req.body);
+
     try {
         const count = await User.count();
-        const isEnabled = count === 0;
+        const isAdmin = count === 0;
 
         const hashedPassword = await bcrypt.hash(password, 10);
         await User.create({
-            username,
+            username:username,
             password: hashedPassword,
-            isAdmin,
-            isEnabled
+            isAdmin:isAdmin,
+            isEnabled: false
         });
         res.status(201).send('User registered, awaiting activation');
     } catch (error) {
@@ -34,6 +36,7 @@ exports.loginUser = async (req, res) => {
         const {username, password} = req.body;
         const user = await User.findOne({where: {username}});
         if (!user) {
+            console.log(user.username);
             return res.status(404).send('User not found');
         }
         if (!user.isEnabled) {
@@ -60,6 +63,7 @@ exports.loginUser = async (req, res) => {
 };
 
 exports.getUsers = async (req, res) => {
+    console.log("OK");
     try {
         const users = await User.findAll();
         res.json(users);
@@ -108,6 +112,7 @@ exports.deleteUser = async (req, res) => {
     try {
         const userId = req.params.id;
         const user = await User.findByPk(userId);
+        console.log(user);
 
         if (!user) {
             return res.status(404).send('User not found');
@@ -119,3 +124,4 @@ exports.deleteUser = async (req, res) => {
         res.status(500).send(error.message);
     }
 }
+

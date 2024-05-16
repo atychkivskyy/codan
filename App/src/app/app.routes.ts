@@ -14,10 +14,6 @@ export const routes: Routes = [
   {
     path: 'graphics',
     loadComponent: () => import('./graphics/graphics.page').then( m => m.GraphicsPage)
-  },  {
-    path: 'prueba',
-    loadComponent: () => import('./prueba/prueba.page').then( m => m.PruebaPage)
   },
-
- 
+  
 ];

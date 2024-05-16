@@ -24,13 +24,14 @@ export class AuthService {
   }
 
   login(username: string, password: string): Observable<boolean | string> {
+
     this.axiosService.removeToken();
     return from(
-      this.axiosService.post('/login', { username, password })
+      this.axiosService.post('api/login', { username, password })
         .then(response => {
           const isAdmin = response.data.isAdmin == true;
-          localStorage.setItem('token', 'true');
-          localStorage.setItem('username', 'true');
+          localStorage.setItem('token', response.data.token);
+          localStorage.setItem('username', response.data.username);
           localStorage.setItem('isAdmin', isAdmin.toString());
           this.isAuthenticated.next(true);
           this.isAdmin.next(isAdmin);
@@ -40,27 +41,41 @@ export class AuthService {
         .catch(error => {
           console.error(error);
           if (error.response.status === 404) {
-            return 'Usuario o contraseña incorrectos';
-          } else {
-            return 'Error interno del servidor';
+            return 'User not found';
+          } 
+          if (error.response.status === 403) {
+            return 'Account is disabled';
           }
+          if(error.response.status === 400){
+            return 'Invalid credentials';
+          }
+
+          return 'Server internal error';
+
         })
     );
   }
 
   getUsers() {
-    return this.axiosService.get('/getUsers')
-      .then(response => response.data)
-      .catch(error => {
-        console.error('Error al obtener la lista de usuarios:', error);
-        throw error;
-      });
+    const token = localStorage.getItem('token'); 
+    return this.axiosService.get('api/users', {
+      headers: {
+        Authorization: `Bearer ${token}` ,
+        Admin: true
+      }
+    })
+    .then(response => response.data)
+    .catch(error => {
+      console.error('Error al obtener la lista de usuarios:', error);
+      throw error;
+    });
   }
+  
   
 
   createUser(username: string,password: string): Observable<boolean> {
     return from(
-      this.axiosService.post('/createUser', {username, password})
+      this.axiosService.post('api/register', {username, password})
         .then(()=>{
           return true;
         })
@@ -86,23 +101,38 @@ export class AuthService {
     }));
   }
 
-  checkUserEnabled(username: string): Observable<boolean |string> {
-    return from(this.axiosService.post('/isEnabled', {username})
-    .then(() =>{
-      return true; 
-    })
-    .catch(error =>{
-      console.error(error);
-          if (error.response.status === 404) {
-            return 'Usuario no habilitado';
-          } else {
-            return 'Error interno del servidor';
-          }
-    }));
+  
+
+  enableUser(id: number): Observable<boolean> {
+
+    return from(
+      this.axiosService.patch(`api/users/${id}`, { 
+        "isEnabled": true
+      })
+      .then(() => true)
+      .catch(error => {
+        console.error(error);
+        return false;
+      })
+    );
   }
 
-  enableUser(username:string): Observable<boolean>{
-    return from(this.axiosService.post('/enableUser', {username})
+  disableUser(id:number): Observable<boolean>{
+
+    return from(
+      this.axiosService.patch(`api/users/${id}`, { 
+        "isEnabled":false
+      })
+      .then(() => true)
+      .catch(error => {
+        console.error(error);
+        return false;
+      })
+    );
+  }
+
+  deleteUser(id:number):Observable<boolean>{
+    return from(this.axiosService.delete(`/api/users/${id}`)
     .then(()=>{
       return true; 
     })
@@ -113,31 +143,12 @@ export class AuthService {
 
   }
 
-  disableUser(username:string): Observable<boolean>{
-    return from(this.axiosService.post('/disableUser', {username})
-    .then(()=>{
-      return true; 
-    })
-    .catch(error =>{
-      console.log(error);
-      return false;
-    }));
-  }
-
-  deleteUser(username:string):Observable<boolean>{
-    return from(this.axiosService.post('/deleteUser', {username})
-    .then(()=>{
-      return true; 
-    })
-    .catch(error =>{
-      console.log(error);
-      return false;
-    }));
-
-  }
-
-  grantRoleUser(username:string):Observable<boolean>{
-    return from(this.axiosService.post('/grantRoleUser', {username})
+  grantRoleUser(id:number):Observable<boolean>{
+    return from(this.axiosService.patch(`/api/users/${id}`,{
+      "isAdmin":true
+    }
+      
+     )
     .then(()=>{
       return true; 
     })
@@ -148,8 +159,10 @@ export class AuthService {
 
   }
 
-  removeRoleUser(username:string):Observable<boolean>{
-    return from(this.axiosService.post('/removeRoleUser', {username})
+  removeRoleUser(id:number):Observable<boolean>{
+    return from(this.axiosService.patch(`/api/users/${id}`,{
+      "isAdmin":false
+    })
     .then(()=>{
       return true; 
     })
