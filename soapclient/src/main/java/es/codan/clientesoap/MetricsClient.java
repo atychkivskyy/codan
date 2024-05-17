@@ -47,7 +47,8 @@ public class MetricsClient extends WebServiceGatewaySupport {
         Properties properties = PropertiesLoaderUtils.loadProperties(new ClassPathResource("soap.properties"));
 
         // Acceder a las propiedades
-    	String rutaWsdl = properties.getProperty("soap.url")+"/metrics.wsdl";
+//    	String rutaWsdl = properties.getProperty("soap.url")+"/metrics.wsdl";
+        String rutaWsdl = properties.getProperty("soap.url");
 	    GetMeanResponse response = (GetMeanResponse) getWebServiceTemplate()
 	        .marshalSendAndReceive(rutaWsdl, request,
 	            new SoapActionCallback(
