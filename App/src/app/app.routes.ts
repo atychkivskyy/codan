@@ -14,7 +14,8 @@ export const routes: Routes = [
   {
     path: 'graphics',
     loadComponent: () => import('./graphics/graphics.page').then( m => m.GraphicsPage)
-  },  {
+  },
+  {
     path: 'profile',
     loadComponent: () => import('./profile/profile.page').then( m => m.ProfilePage)
   },
@@ -23,9 +24,13 @@ export const routes: Routes = [
     loadComponent: () => import('./register/register.page').then( m => m.RegisterPage)
   },
   {
-    path: 'tyc',
-    loadComponent: () => import('./tyc/tyc.page').then( m => m.TycPage)
+    path: 'home',
+    loadComponent: () => import('./home/home.page').then( m => m.HomePage)
   },
 
+  {
+    path: 'tyc',
+    loadComponent: () => import('./tyc/tyc.page').then( m => m.TycPage)
+  }
   
 ];
