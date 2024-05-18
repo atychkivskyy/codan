@@ -1,16 +1,6 @@
 /* En tu archivo SCSS */
 
 .login-page {
-    .background {
-      background: linear-gradient(to bottom, var(--ion-color-tertiary) 40%, var(--ion-color-primary)); /* Fondo con gradiente */
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1; /* Para colocar detrás del contenido */
-    }
-  
     .content {
       text-align: center;
       padding-top: 100px; /* Ajusta según sea necesario */
@@ -29,7 +19,7 @@
       width: 180px; /* Ajusta según sea necesario */
       height: auto;
       border-radius: 20px;
-      margin-bottom: 40px;
+      margin-bottom: 10px;
     }
   
     .text {
@@ -38,9 +28,13 @@
   
     .form-box {
       background-color: white;
-      max-width: 280px; /* Ajusta según sea necesario */
+      max-width: 70%; /* Ajusta según sea necesario */
+      width:70%;
+
       margin: 0 auto;
-      padding: 40px;
+      padding: 12%;
+      padding-top: 2%;
+      padding-bottom: 6%;
       border-radius: 40px;
       margin-top: 20px; /* Ajusta según sea necesario */
         .text{
@@ -56,16 +50,21 @@
     }
     .error-message {
       font-size: 12px; /* Establece el tamaño de fuente más pequeño */
-      color: red; /* Cambia el color del texto a rojo para indicar un mensaje de error */
-      margin-top: 5px; /* Ajusta el margen superior para separarlo del campo de contraseña */
+      color: #c11b1c; /* Cambia el color del texto a rojo para indicar un mensaje de error */
+      margin-top: 6%; /* Ajusta el margen superior para separarlo del campo de contraseña */
+      text-align: left;
     }
   
     .placeholder {
       margin-bottom: 10px;
       color:#3e3f40;
       text-align: left;
+      --highlight-color-focused: transparent; /* Oculta el resaltado al estar enfocado */
+      --highlight-height-focused: 0; /* Reduce el tamaño del resaltado al estar enfocado */
+      border-bottom: 1px solid rgba(69, 69, 69, 0.389); /* Añade una línea sólida como barra inferior */
       
     }
+    
   
     .ion-button{
         border-radius: 50px;
@@ -79,11 +78,25 @@
     .register-button-bottom {
         --margin-top: 10px; /* Espacio entre los botones */
         --background: #0c0b0c; /* Cambiar el color de fondo del botón inferior */
+        font-size: 90px;
     }
     .small-button {
         margin-bottom: 15px;
-        font-size: 10px; /* Ajusta el tamaño del texto */
+        font-size: 100%; /* Ajusta el tamaño del texto */
+        width: 100%; /* Modifica el ancho del botón */
+        height: 60px; /* Modifica la altura del botón */
         --border-radius: 20px; /* Ajusta el radio de las esquinas para hacerlo más circular */
+        margin: 0 auto; /* Alinea el botón al centro horizontalmente */
+    }
+
+    .register-link {
+      color: #c11b1c; /* Color del enlace */
+      text-decoration: underline; /* Subrayado */
+      cursor: pointer; /* Cursor de tipo mano para indicar que es un enlace */
+    }
+    
+    .register-link:hover {
+      color: #fdd006; /* Color al pasar el cursor sobre el enlace */
     }
     
 }

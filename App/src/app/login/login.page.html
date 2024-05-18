@@ -5,14 +5,28 @@
 
   <div class="content">
     <!-- Imagen -->
+    <img src="assets/icon/codan_logo.png" class="centered-image">
     
 
+    <p style="text-align: center; font-size: 200%; margin-left: 15%; margin-right: 15%; font-weight: bold">CODAN TE CUIDA</p>
+    <ion-label style="text-align: center; font-size: 150%; margin-left: 15%; margin-right: 15%">
+      Siéntete bien, disfrutando lo que más te gusta
+    </ion-label>
+    <hr>
     <div class="form-box">
-      <img src="assets/icon/codan_logo.jpg" class="centered-image">
+      <p style="text-align: left; font-size: 180%; font-weight: bold; color:#c11b1c;">Inicia Sesión</p>
       <ion-input placeholder="Nombre de usuario" class="placeholder"[(ngModel)]="username" ></ion-input>
       <ion-input placeholder="Contraseña" type="password" class="placeholder"  [(ngModel)]="password"></ion-input>
+      <hr>
       <div *ngIf="error" class="error-message">{{ error }}</div>
-      <ion-button expand="block" class="submit-button-top small-button" color="secondary" (click)="login()" >Login</ion-button>
+      <hr>
+      <hr>
+      <ion-button expand="block" class="submit-button-top small-button" color="secondary" (click)="login()" >Iniciar sesión</ion-button>
+      <hr>
+      <hr>
+      <div class="register-text" style="color:black">
+        ¿Aún no tienes cuenta? <a class="register-link" href="/register">Regístrate</a>
+      </div>
     </div>
   </div>
 </ion-content>

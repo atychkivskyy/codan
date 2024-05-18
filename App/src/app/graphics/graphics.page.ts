@@ -39,12 +39,6 @@ export class GraphicsPage implements OnInit, AfterViewInit {
     this.getDataAndUpdateChart();
   }
 
-  accordionOpen = false;
-
-  toggleAccordion() {
-    this.accordionOpen = !this.accordionOpen;
-  }
-  
   getDataAndUpdateChart() {
     this.fields.forEach(field => {
       this.influxDBService.getDataFromInfluxDB(field, "5m").subscribe({
