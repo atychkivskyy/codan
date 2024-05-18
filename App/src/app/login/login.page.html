@@ -16,7 +16,7 @@
     <div class="form-box">
       <p style="text-align: left; font-size: 180%; font-weight: bold; color:#c11b1c;">Inicia Sesión</p>
       <ion-input placeholder="Nombre de usuario" class="placeholder"[(ngModel)]="username" ></ion-input>
-      <ion-input placeholder="Contraseña" type="password" class="placeholder"  [(ngModel)]="password"></ion-input>
+      <ion-input placeholder="Contraseña" type="password" class="placeholder" (keyup.enter)="login()" [(ngModel)]="password"></ion-input>
       <hr>
       <div *ngIf="error" class="error-message">{{ error }}</div>
       <hr>
