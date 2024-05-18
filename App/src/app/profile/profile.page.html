@@ -1,0 +1,50 @@
+<ion-menu contentId="main-content">
+  <ion-header>
+    <ion-toolbar color="white">
+      <ion-title>Menu</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content class="ion-padding" >
+    <ion-list>
+      <ion-item button href="/graphics">
+        <ion-label>Graphics</ion-label>
+      </ion-item>
+      <ion-item button href="/management">
+        <ion-label>Management</ion-label>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+<div class="ion-page" id="main-content">
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>Profile</ion-title>
+    </ion-toolbar>
+  </ion-header>
+<ion-content class="login-page">
+  <div class="background">
+  </div>
+  <div class="content">
+    <div class="form-box"> 
+      <ion-list-header>
+        <ion-title>Data user</ion-title>
+      </ion-list-header>
+      <ion-list>
+        <ion-item>
+          <ion-label class="username">Username: {{ currentUser.username }}</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label class="isEnabled">Enabled: {{ currentUser.isEnabled }}</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label class="isAdmin">Admin: {{ currentUser.isAdmin }}</ion-label>
+        </ion-item>
+      </ion-list>
+    </div>
+  </div>        
+
+
+</ion-content>

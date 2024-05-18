@@ -30,9 +30,11 @@ export class AuthService {
       this.axiosService.post('api/login', { username, password })
         .then(response => {
           const isAdmin = response.data.isAdmin == true;
+          const isEnabled = response.data.isEnabled == true;
           localStorage.setItem('token', response.data.token);
           localStorage.setItem('username', response.data.username);
           localStorage.setItem('isAdmin', isAdmin.toString());
+          localStorage.setItem('isEnabled',isEnabled.toString())
           this.isAuthenticated.next(true);
           this.isAdmin.next(isAdmin);
           this.currentUsername.next(response.data.username)
@@ -70,6 +72,7 @@ export class AuthService {
       throw error;
     });
   }
+
   
   
 
