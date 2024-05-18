@@ -32,7 +32,27 @@
   <div class="background-home">
   </div>
   <div>
-    <img src="assets/icon/banner-web.jpg" style="width: 100%; height: auto;">
+    <swiper-container
+    [loop]="true"
+    [pagination]="{ clickable: true }"
+    class="mySwiper"
+    >
+      <swiper-slide>
+        <div class="slide-content">
+          <img src="/assets/icon/fabrica.jpg" />
+        </div>
+      </swiper-slide>
+      <swiper-slide>
+        <div class="slide-content">
+          <img src="assets/icon/4kk.png" />
+        </div>
+      </swiper-slide>
+      <swiper-slide>
+        <div class="slide-content">
+          <img src="assets/icon/makina.png" />
+        </div>
+      </swiper-slide>
+  </swiper-container>
   </div>
   <div class="row ">
   </div>
@@ -41,17 +61,52 @@
       <h3 class="title_box"> CODAN TE CUIDA</h3>
       <div class="box">
         <p>
-          CODAN te cuida con su línea
+          CODAN te cuida en el trabajo
         </p>
         <p>
-          <span> 0% azúcares añadidos, elaborada con ingredientes integrales.</span>
+          <span> Las mejores condiciones de trabajo, para los mejores trabajadores.</span>
         </p>
         <p>
-          Una gama especial para cuidarte que mantiene intacto el sabor y textura de nuestra receta original. Siéntete bien, disfrutando lo que más te gusta.
+          La gran fabrica de CODAN ofrece nuevas actualizaciones para mantener un control exhaustivo del aire y temperatura.
         </p>
     </div>
-      <button class="button_box" onclick="window.open('https://decodanacasa.es/','_self')"> DESCUBRIR </button>
+      <button class="button_box" (click)="goToGraphicsPage()"> MONITORIZA! </button>
     </div>
   </div>
+  <div class="row ">
+  </div>
+  <hr style="margin-top: 5px;">
+  <hr>
+  <div class="fin">
+    <div onclick="window.open('https://codan.es/nuestra-historia/','_blank')">
+      <img src="/assets/icon/codan baker.png " class="card-img-top" alt="...">
+      <div class="card-body">
+        <a> <p class="card-text">CODAN</p></a>
+      </div>
+    </div>
+    <div onclick="window.open('https://codan.es/delegaciones/','_blank')">
+      <img src="/assets/icon/mapa.png " class="card-img-top" alt="...">
+      <div class="card-body">
+        <a> <p class="card-text">LAS FABRICAS DE CODAN ACTUALIZADAS</p></a>
+      </div>
+    </div>
+  </div>
+  
+  <hr style="margin-bottom: 30px;">
+
+  <footer #footer>
+    <div class="col-12 col-sm-5 text-center copyright">
+      <img src="https://codan.es/wp-content/uploads/2020/01/Logo-CODAN-Footer.png" class="img-responsive slide-from-left" alt="Logo bolleria Codan">
+      <p>
+        <strong>© CODAN ESPAÑA S.A. Todos los derechos reservados</strong>
+      </p>
+  
+      <a href="https://codan.es/aviso-legal/" style="color:white;">AVISO LEGAL</a>
+      <a href="https://codan.es/politica-privacidad/" style="color:white;">POLÍTICA DE PRIVACIDAD</a>
+      <a href="https://codan.es/politica-de-cookies/" style="color:white;">POLÍTICA DE COOKIES</a>
+      <a href="https://codan.es/codigo-de-conducta/" style="white-space: nowrap; color:white;">CANAL DE COMUNICACIONES</a>
+    </div>
+  </footer>
+  
 
 </ion-content>
