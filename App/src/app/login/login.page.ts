@@ -26,17 +26,24 @@ export class LoginPage implements OnInit {
   constructor(private authService: AuthService, private router: Router) { }
 
   login() {
+    if(this.username==''){
+      this.error = 'Rellena todos los datos';
+      return;
+    }else if(this.password==''){
+      this.error = 'Rellena todos los datos';
+      return;
+    }
     this.authService.login(this.username, this.password).subscribe(
       (response: boolean | string) => {
       if (response === true) {
         this.router.navigate(['/graphics']);
       } else {
-        this.error = response as string;
+        this.error = "Error al iniciar sesión";
       }
       },
       (error) => {
         console.error(error);
-        this.error = 'Error interno del servidor';
+        this.error = 'Error al iniciar sesión';
       }
     );
   }

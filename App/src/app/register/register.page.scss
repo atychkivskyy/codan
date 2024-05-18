@@ -1,0 +1,103 @@
+/* En tu archivo SCSS */
+
+.login-page {
+    .content {
+      text-align: center;
+      padding-top: 10%; /* Ajusta según sea necesario */
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center; /* Centrar verticalmente */
+      align-items: center; /* Centrar horizontalmente */
+      z-index: 1; /* Asegurar que esté por encima del fondo */ /* Color del texto */
+      
+    }
+  
+    .centered-image {
+      display: block;
+      margin: 0 auto;
+      width: 180px; /* Ajusta según sea necesario */
+      height: auto;
+      border-radius: 20px;
+      margin-bottom: 10px;
+    }
+  
+    .text {
+      margin-top: 20px; /* Ajusta según sea necesario */
+    }
+  
+    .form-box {
+      background-color: white;
+      max-width: 70%; /* Ajusta según sea necesario */
+      width:70%;
+
+      margin: 0 auto;
+      padding: 12%;
+      padding-top: 2%;
+      padding-bottom: 6%;
+      border-radius: 40px;
+      margin-top: 20px; /* Ajusta según sea necesario */
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.681);
+        .text{
+            font-size: 10px;
+            color: #0c0b0c;
+            font-weight: bold;            .register-link {
+                font-size: inherit; /* Utiliza el tamaño de fuente heredado */
+                text-decoration: underline; /* Agrega subrayado al enlace */
+                color:rgb(12, 73, 70); /* Utiliza el color de texto heredado */
+              }
+            
+        }
+    }
+    .error-message {
+      font-size: 14px; /* Establece el tamaño de fuente más pequeño */
+      color: #c11b1c; /* Cambia el color del texto a rojo para indicar un mensaje de error */
+      margin-top: 6%; /* Ajusta el margen superior para separarlo del campo de contraseña */
+      text-align: left;
+    }
+  
+    .placeholder {
+      margin-bottom: 10px;
+      color:#3e3f40;
+      text-align: left;
+      --highlight-color-focused: transparent; /* Oculta el resaltado al estar enfocado */
+      --highlight-height-focused: 0; /* Reduce el tamaño del resaltado al estar enfocado */
+      border-bottom: 1px solid rgba(69, 69, 69, 0.389); /* Añade una línea sólida como barra inferior */
+      
+    }
+    
+  
+    .ion-button{
+        border-radius: 50px;
+    }
+    .submit-button-top {
+        margin-top: 20px; /* Espacio entre el texto y el botón superior */
+        --background: #007bff; /* Cambiar el color de fondo del botón superior */
+        --color: white; /* Cambiar el color del texto del botón superior */
+    }
+      
+    .register-button-bottom {
+        --margin-top: 10px; /* Espacio entre los botones */
+        --background: #0c0b0c; /* Cambiar el color de fondo del botón inferior */
+        font-size: 90px;
+    }
+    .small-button {
+        margin-bottom: 15px;
+        font-size: 100%; /* Ajusta el tamaño del texto */
+        width: 100%; /* Modifica el ancho del botón */
+        height: 60px; /* Modifica la altura del botón */
+        --border-radius: 20px; /* Ajusta el radio de las esquinas para hacerlo más circular */
+        margin: 0 auto; /* Alinea el botón al centro horizontalmente */
+    }
+
+    .register-link {
+      color: #c11b1c; /* Color del enlace */
+      text-decoration: underline; /* Subrayado */
+      cursor: pointer; /* Cursor de tipo mano para indicar que es un enlace */
+    }
+    
+    .register-link:hover {
+      color: #fdd006; /* Color al pasar el cursor sobre el enlace */
+    }
+    
+}

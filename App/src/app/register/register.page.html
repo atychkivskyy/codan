@@ -1,13 +1,40 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>register</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content class="login-page">
+  <div class="background">
+    <!-- Fondo con gradiente -->
+  </div>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">register</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <div class="content">
+    <!-- Imagen -->
+    <img src="assets/icon/codan_logo.png" class="centered-image">
+    
+    <p style="text-align: center; font-size: 200%; margin-left: 15%; margin-right: 15%; font-weight: bold">CODAN TE CUIDA</p>
+    <ion-label style="text-align: center; font-size: 150%; margin-left: 15%; margin-right: 15%">
+      Siéntete bien, disfrutando lo que más te gusta.
+    </ion-label>
+
+    <hr>
+    <div class="form-box">
+      <p style="text-align: left; font-size: 180%; font-weight: bold; color:#c11b1c;">Crea una cuenta</p>
+      <ion-input placeholder="Nombre de usuario" class="placeholder"[(ngModel)]="username" ></ion-input>
+      <ion-input placeholder="E-mail" class="placeholder"[(ngModel)]="email" ></ion-input>
+      <ion-input placeholder="Contraseña" type="password" class="placeholder"  [(ngModel)]="password"></ion-input>
+      <ion-input placeholder="Repite la contraseña" type="password" class="placeholder"  [(ngModel)]="password2"></ion-input>
+      <hr>
+      <div *ngIf="error" class="error-message">{{ error }}</div>
+      <hr>
+      <hr>
+      <ion-button expand="block" class="submit-button-top small-button" color="secondary" (click)="register()" >Registrarse</ion-button>
+      <hr>
+      <hr>
+      <div class="register-text" style="color:black">
+        ¿Ya tienes una cuenta? <a class="register-link" href="/login">Inicia sesión</a>
+      </div>
+      <hr>
+      <hr>
+      <a class="register-link" href="/tyc" style="font-weight: bold">Términos y condiciones</a>
+      
+    </div>
+    <hr>
+    <hr>
+  </div>
 </ion-content>
