@@ -30,8 +30,8 @@ public class WebServiceConfig extends WsConfigurerAdapter {
     public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema metricsSchema) {
         DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
         wsdl11Definition.setPortTypeName("MetricsPort");
+        wsdl11Definition.setTargetNamespace("http://es.codan.springsoap/gen");
         wsdl11Definition.setLocationUri("/metrics.wsdl");
-        wsdl11Definition.setTargetNamespace("http://schemas.xmlsoap.org/wsdl/");
         wsdl11Definition.setSchema(metricsSchema);
         return wsdl11Definition;
     }
