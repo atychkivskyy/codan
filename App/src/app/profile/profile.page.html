@@ -1,18 +1,27 @@
 <ion-menu contentId="main-content">
   <ion-header>
-    <ion-toolbar color="white">
-      <ion-title>Menu</ion-title>
+    <ion-toolbar color="tertiary">
+      <ion-title>Menú</ion-title>
     </ion-toolbar>
   </ion-header>
-  <ion-content class="ion-padding" >
+  <ion-content class="ion-padding">
     <ion-list>
+      <ion-item button href="/home">
+        <ion-label>Inicio</ion-label>
+      </ion-item>
       <ion-item button href="/graphics">
-        <ion-label>Graphics</ion-label>
+        <ion-label>Gráficos</ion-label>
       </ion-item>
       <ion-item button href="/management">
-        <ion-label>Management</ion-label>
+        <ion-label>Administración</ion-label>
       </ion-item>
-    </ion-list>
+      <ion-item button href="/profile">
+        <ion-label>Perfil</ion-label>
+      </ion-item>
+    <ion-item button href="/login">
+      <ion-label>Cerrar sesión</ion-label>
+    </ion-item>
+  </ion-list>
   </ion-content>
 </ion-menu>
 <div class="ion-page" id="main-content">
@@ -30,18 +39,30 @@
   <div class="content">
     <div class="form-box"> 
       <ion-list-header>
-        <ion-title>Data user</ion-title>
+        <ion-title [style.text-decoration]="'underline'">Datos del empleado</ion-title>
       </ion-list-header>
       <ion-list>
         <ion-item>
-          <ion-label class="username">Username: {{ currentUser.username }}</ion-label>
+          <ion-label class="username" style="margin: 10px 0;">Nombre de usuario: {{ currentUser.username }}</ion-label>
         </ion-item>
         <ion-item>
-          <ion-label class="isEnabled">Enabled: {{ currentUser.isEnabled }}</ion-label>
+          <ion-label class="isEnabled" style="margin: 10px 0;">
+            Cuenta: <span [ngClass]="{'enabled': currentUser.isEnabled, 'disabled': !currentUser.isEnabled}">
+              {{ currentUser.isEnabled ? 'Activada' : 'Desactivada' }}
+            </span>
+          </ion-label>
         </ion-item>
         <ion-item>
-          <ion-label class="isAdmin">Admin: {{ currentUser.isAdmin }}</ion-label>
+          <ion-label class="isAdmin" style="margin: 10px 0;">
+            Tipo: <span [ngClass]="{'admin': currentUser.isAdmin, 'noadmin': !currentUser.isAdmin}">
+              {{ currentUser.isAdmin ? 'Administrador' : 'Empleado' }}
+            </span>
+          </ion-label>
         </ion-item>
+        <ion-item>
+          <ion-label class="createdAt" style="margin: 10px 0;">Fecha de creación: {{ currentUser.createdAt }}</ion-label>
+        </ion-item>
+        
       </ion-list>
     </div>
   </div>        

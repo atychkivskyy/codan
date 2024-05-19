@@ -17,10 +17,11 @@
 .login-page .form-box {
     position: relative;
     background-color: white;
-    max-width: 400px;
+    max-width: 85%;
+    width: 85%;
     margin: 40px auto 0;
     padding: 60px 20px;
-    border-radius: 40px;
+    border-radius: 5px;
     margin-bottom: 40px;
     overflow: hidden;
 }
@@ -37,6 +38,33 @@
     right: 20px; 
     
 }
+
+.enabled {
+    color: green;
+    font-weight: bold;
+  }
+  
+.disabled {
+    color: red;
+    font-weight: bold;
+  }
+
+  
+.admin {
+    color: darkblue;
+    font-weight: bold;
+  }
+  
+.noadmin {
+    color: darkgoldenrod;
+    font-weight: bold;
+  }
+  
+.username, .isEnabled, .isAdmin .createdAt{
+    margin: 10px 0;
+  }
+  
+  
   
 list-header {
     padding-top: 10px; /* Espacio vertical arriba */
@@ -47,7 +75,8 @@ list-header {
 .username,
 .isEnabled,
 .isAdmin, 
-.password{
+.password
+.createdAt{
     margin: 0px;
     padding: 20px;
      /* Espacio vertical entre etiquetas */
