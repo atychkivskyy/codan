@@ -60,7 +60,7 @@
     font-weight: bold;
   }
   
-.username, .isEnabled, .isAdmin .createdAt{
+.username, .isEnabled, .isAdmin{
     margin: 10px 0;
   }
   
@@ -75,8 +75,7 @@ list-header {
 .username,
 .isEnabled,
 .isAdmin, 
-.password
-.createdAt{
+.password{
     margin: 0px;
     padding: 20px;
      /* Espacio vertical entre etiquetas */

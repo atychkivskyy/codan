@@ -12,7 +12,7 @@
       <ion-item button href="/graphics" style="--ion-background-color: #e8e5ff">
         <ion-label style="font-weight: 520; color: #000000;">Gráficos</ion-label>
       </ion-item>
-      <ion-item button href="/management">
+      <ion-item button href="/management" *ngIf="isAdmin=='Yes'">
         <ion-label>Administración</ion-label>
       </ion-item>
       <ion-item button href="/profile" style="--ion-background-color: #e8e5ff">

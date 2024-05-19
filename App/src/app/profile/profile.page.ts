@@ -14,6 +14,7 @@ import { AuthService } from '../auth.service';
 export class ProfilePage implements OnInit {
 
   currentUser: any;
+  isAdmin: String = 'No';
 
   constructor() { }
 
@@ -24,6 +25,7 @@ export class ProfilePage implements OnInit {
       isAdmin: localStorage.getItem('isAdmin') === 'true' ? 'Yes' : 'No', // Convierte el valor de isAdmin a "Yes" o "No"
       createdAt: localStorage.getItem('createdAt')
     };
+    this.isAdmin = localStorage.getItem('isAdmin') === 'true' ? 'Yes' : 'No';
   }
 
 }

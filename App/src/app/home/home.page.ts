@@ -18,7 +18,10 @@ export class HomePage implements OnInit {
 
   constructor(private router: Router) { }
 
+  isAdmin: String = 'No';
+
   ngOnInit() {
+    this.isAdmin = localStorage.getItem('isAdmin') === 'true' ? 'Yes' : 'No';
   }
 
   goToGraphicsPage(){

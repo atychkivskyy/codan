@@ -62,10 +62,11 @@ export class managementPage implements OnInit {
   
   constructor(private authService: AuthService, private alertController: AlertController) { }
 
-  currentUser: any;
+  isAdmin: String = 'No';
 
   ngOnInit() {
     this.getUsers();
+    this.isAdmin = localStorage.getItem('isAdmin') === 'true' ? 'Yes' : 'No';
   }
 
 async showAlert(header: string, message: string) {

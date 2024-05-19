@@ -4,33 +4,33 @@
       <ion-title>Menú</ion-title>
     </ion-toolbar>
   </ion-header>
-  <ion-content class="ion-padding">
+  <ion-content class="ion-padding" style="--ion-background-color: #e8e5ff;">
     <ion-list>
-      <ion-item button href="/home">
-        <ion-label>Inicio</ion-label>
+      <ion-item button href="/home" style="--ion-background-color: #e8e5ff">
+        <ion-label style="color: #000000;">Inicio</ion-label>
       </ion-item>
-      <ion-item button href="/graphics">
-        <ion-label>Gráficos</ion-label>
+      <ion-item button href="/graphics" style="--ion-background-color: #e8e5ff">
+        <ion-label style="font-weight: 520; color: #000000;">Gráficos</ion-label>
       </ion-item>
-      <ion-item button href="/management">
+      <ion-item button href="/management" *ngIf="isAdmin=='Yes'">
         <ion-label>Administración</ion-label>
       </ion-item>
-      <ion-item button href="/profile">
-        <ion-label>Perfil</ion-label>
+      <ion-item button href="/profile" style="--ion-background-color: #e8e5ff">
+        <ion-label style="color: #000000;">Perfil</ion-label>
       </ion-item>
-    <ion-item button href="/login">
-      <ion-label>Cerrar sesión</ion-label>
-    </ion-item>
-  </ion-list>
+      <ion-item button href="/login" style="--ion-background-color: #e8e5ff">
+        <ion-label style="color: #000000;">Cerrar sesión</ion-label>
+      </ion-item>
+    </ion-list>
   </ion-content>
 </ion-menu>
 <div class="ion-page" id="main-content">
   <ion-header>
-    <ion-toolbar>
+    <ion-toolbar color="primary">
       <ion-buttons slot="start">
         <ion-menu-button></ion-menu-button>
       </ion-buttons>
-      <ion-title>Profile</ion-title>
+      <ion-title color="light">Perfil</ion-title>
     </ion-toolbar>
   </ion-header>
 <ion-content class="login-page">
@@ -39,11 +39,11 @@
   <div class="content">
     <div class="form-box"> 
       <ion-list-header>
-        <ion-title [style.text-decoration]="'underline'">Datos del empleado</ion-title>
+        <ion-title  style="font-weight: bold" >Datos del empleado</ion-title>
       </ion-list-header>
       <ion-list>
         <ion-item>
-          <ion-label class="username" style="margin: 10px 0;">Nombre de usuario: {{ currentUser.username }}</ion-label>
+          <ion-label class="username" style="margin: 5px 0; font-size: 160%; color: #edc40e; font-weight: bold">{{ currentUser.username }}</ion-label>
         </ion-item>
         <ion-item>
           <ion-label class="isEnabled" style="margin: 10px 0;">
@@ -60,7 +60,7 @@
           </ion-label>
         </ion-item>
         <ion-item>
-          <ion-label class="createdAt" style="margin: 10px 0;">Fecha de creación: {{ currentUser.createdAt }}</ion-label>
+          <ion-label class="username" style="margin: 10px 0;">Fábrica: <span style="font-weight: bold; color: #ff0000;">MADRID</span></ion-label>
         </ion-item>
         
       </ion-list>
