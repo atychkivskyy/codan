@@ -24,7 +24,7 @@ export class GraphicsPage implements OnInit, AfterViewInit {
 
   temperature: number = 0;
   range_temp: string ="";
-  selectedSegment: string = "temperature";
+  selectedSegment: string = 'temperature';
 
   isAdmin: String = 'No'; //Para el menu
 
