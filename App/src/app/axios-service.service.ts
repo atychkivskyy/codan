@@ -45,5 +45,8 @@ export class AxiosServiceService {
     return axios.delete(url,  config);
   }
 
+  clearLocalStorage() {
+    localStorage.clear(); // Función para limpiar el localStorage
+  }
 
 }

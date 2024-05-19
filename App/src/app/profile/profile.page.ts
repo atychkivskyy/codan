@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { AuthService } from '../auth.service';
+import { AxiosServiceService } from "../axios-service.service";
 
 @Component({
   selector: 'app-profile',
@@ -16,7 +17,7 @@ export class ProfilePage implements OnInit {
   currentUser: any;
   isAdmin: String = 'No';
 
-  constructor() { }
+  constructor(private axiosService: AxiosServiceService) { }
 
   ngOnInit() {
     this.currentUser = {
@@ -26,6 +27,10 @@ export class ProfilePage implements OnInit {
       createdAt: localStorage.getItem('createdAt')
     };
     this.isAdmin = localStorage.getItem('isAdmin') === 'true' ? 'Yes' : 'No';
+  }
+
+  limpiarLocalStorage() {
+    this.axiosService.clearLocalStorage(); // Llama a la función para limpiar el localStorage
   }
 
 }

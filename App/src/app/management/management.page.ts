@@ -5,6 +5,7 @@ import { AlertInput, IonicModule } from '@ionic/angular';
 import { InfiniteScrollCustomEvent } from '@ionic/angular';
 import { AuthService } from '../auth.service';
 import { AlertController } from '@ionic/angular';
+import { AxiosServiceService } from "../axios-service.service";
 
 
 interface User {
@@ -60,13 +61,17 @@ export class managementPage implements OnInit {
     
   ];
   
-  constructor(private authService: AuthService, private alertController: AlertController) { }
+  constructor(private authService: AuthService, private alertController: AlertController, private axiosService: AxiosServiceService) { }
 
   isAdmin: String = 'No';
 
   ngOnInit() {
     this.getUsers();
     this.isAdmin = localStorage.getItem('isAdmin') === 'true' ? 'Yes' : 'No';
+  }
+
+  limpiarLocalStorage() {
+    this.axiosService.clearLocalStorage(); // Llama a la función para limpiar el localStorage
   }
 
 async showAlert(header: string, message: string) {

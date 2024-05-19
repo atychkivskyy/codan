@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
 import { IonicModule } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { AxiosServiceService } from "../axios-service.service";
 
 @Component({
   selector: 'app-home',
@@ -16,7 +17,7 @@ import { Router } from '@angular/router';
 
 export class HomePage implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private axiosService: AxiosServiceService) { }
 
   isAdmin: String = 'No';
 
@@ -26,6 +27,10 @@ export class HomePage implements OnInit {
 
   goToGraphicsPage(){
     this.router.navigate(['/graphics']);
+  }
+
+  limpiarLocalStorage() {
+    this.axiosService.clearLocalStorage(); // Llama a la función para limpiar el localStorage
   }
 
 }
