@@ -29,7 +29,6 @@ interface Item{
   imports: [IonicModule, CommonModule, FormsModule]
 })
 export class managementPage implements OnInit {
-
   users: Item[] = []; 
 
   public alertButtons = ['Create User'];
@@ -63,19 +62,21 @@ export class managementPage implements OnInit {
   
   constructor(private authService: AuthService, private alertController: AlertController) { }
 
+  currentUser: any;
+
   ngOnInit() {
     this.getUsers();
   }
 
-  async showAlert(header: string, message: string) {
-    const alert = await this.alertController.create({
-      header: header,
-      message: message,
-      buttons: ['OK']
-    });
-  
-    await alert.present();
-  }
+async showAlert(header: string, message: string) {
+  const alert = await this.alertController.create({
+    header: header,
+    message: message,
+    buttons: ['OK']
+  });
+
+  await alert.present();
+}
 
   async openAlert() {
     const alert = await this.alertController.create({
