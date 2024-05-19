@@ -1,66 +1,61 @@
-.login-page .background {
-  background: linear-gradient(to bottom, var(--ion-color-tertiary) 40%, var(--ion-color-primary)); /* Fondo con gradiente */
-  position: fixed;
-  top: 0;
-  left: 0;
+.content {
+  color: black;
   width: 100%;
-  height: 100%;
-  z-index: -1; /* Para colocar detrás del contenido */
 }
 
-.login-page .content {
+h1 {
+  color: #333; /* Color del texto */
+  font-size: 2.5rem; /* Tamaño de fuente */
+  font-weight: bold; /* Grosor de la fuente */
+  text-align: left; /* Alineación del texto al centro */
+  margin-left: 6%;
+  margin-bottom: 20px; /* Espacio inferior */
+}
+
+.first-container{
+  margin-top: 20px;
+  background-color: rgb(255, 255, 255);
+  padding: 2%;
+  border-radius: 5px;
+  margin:2%;
+}
+
+.first-container canvas {
+  font-weight: bold;
+}
+
+.container-ini {
+  background-color: #fbfaff44;
+  display: flex;
+  flex-direction: row; /* Alinea los elementos en una fila */
+  justify-content: space-between; /* Espacio igual entre los elementos */
+  align-items: center; /* Alinea verticalmente al centro */
+  margin:2%;
+  padding-top: 10px;
+  padding: 7%;
+  margin-top: 20px;
+  border-radius: 10px;
+}
+
+.temperature-box{
+  background-color: #14399e;
+  border-radius: 10px;
+  color:antiquewhite;
   text-align: center;
-  padding-top: 50px; /* Ajusta según sea necesario */
-  color: white;
-  flex-direction: column;
-  justify-content: center; /* Centrar verticalmente */
-  align-items: center;
-  position: relative; /* Centrar horizontalmente */
-  z-index: 1; /* Asegurar que esté por encima del fondo */ 
-  color: black; /* Color del texto */
-  margin-bottom: 40px;
+  margin-left: 4px;
+  padding: 2%;
 }
 
-.login-page .form-box {
-  position: relative;
-  z-index: 1;
+.graphics-box {
   background-color: white;
-  max-width: 60%;
-  margin: 40px auto 0;
-  padding: 40px 20px;
+  max-width: 80%;
+  margin: 10%;
+  margin-top: 5%;
+  padding: 4%;
   border-radius: 40px;
-  height: auto;
-
+  align-items: center;
 }
 
-/* Agregamos estilos para el título */
-.login-page .box-title {
-  position: absolute;
-  top: 10px;
-  left: 50%; 
-  /* Centramos horizontalmente */
-  transform: translateX(-50%); /* Centramos horizontalmente */
-  margin: 0;
- 
-}
-
-/* Estilos para el tamaño de las gráficas */
-.login-page .chart-canvas {
-  margin-top: 10px;
-  width: 90%; /* Ajustar el ancho al 90% del contenedor */
-  height: auto; /* Permitir que la altura se ajuste automáticamente */
-  min-height: 300px; /* Altura mínima para garantizar suficiente espacio para las gráficas */
-  max-height: 500px; /* Altura máxima para evitar que las gráficas sean demasiado grandes */
-}
-
-
-/* Media query para dispositivos móviles */
-@media only screen and (max-width: 600px) {
-  .login-page .form-box {
-    max-width: 95%; /* Reducimos el ancho para dispositivos móviles */
-  }
-
-  .login-page .chart-canvas {
-    max-height: 100%; /* Altura máxima reducida para dispositivos móviles */
-  }
+.box-title {
+  text-align: center;
 }

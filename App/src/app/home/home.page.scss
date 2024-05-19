@@ -8,6 +8,34 @@
     z-index: -1;
 }
 
+.mySwiper {
+    width: 100%;
+    height: 17%; /* Full viewport height */
+  
+    swiper-slide {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+    }
+  
+    .slide-content {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%; /* Ensures the div takes the full height of the slide */
+    }
+  
+    img {
+      margin-top: 5%;
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain; /* Use 'cover' if you prefer to crop the images */
+      display: block;
+      justify-content: center;
+    }
+}
+
 .row {
     margin-top: 10px;
     margin-bottom: 10px;
@@ -22,7 +50,7 @@
   background-repeat: no-repeat;
   background-position: 17%;
   background-size: cover;
-  padding-bottom: 18%;
+  padding-bottom: 7%;
 }
 
 .title_box {
@@ -99,5 +127,86 @@
         width: 180px;
         height: 30px;
         margin: 0;
+    }
+}
+
+.fin {
+  display: flex;
+  justify-content: center; /* Centra los elementos horizontalmente */
+  gap: 20px; /* Ajusta el espacio entre las imágenes según sea necesario */
+}
+
+.card {
+  display: flex;
+  flex-direction: column; /* Coloca el contenido en columna */
+  align-items: center; /* Centra los elementos horizontalmente */
+  text-align: center; /* Centra el texto debajo de las imágenes */
+}
+
+.card-img-top {
+  width: 94%; /* Asegúrate de que las imágenes no excedan el ancho del contenedor */
+  height: auto; /* Mantén las proporciones de las imágenes */
+  border-top-left-radius: calc(.25rem - 1px);
+  border-top-right-radius: calc(.25rem - 1px);
+}
+
+.card-body {
+  padding-top: 10px; /* Ajusta el espacio entre la imagen y el texto según sea necesario */
+}
+
+.card-text {
+    margin: 0; /* Elimina cualquier margen por defecto del texto */
+    text-align: center;
+    font-family: 'CeraPro-Regular';
+    font-weight: bold;
+    color: #8b3f00;
+}
+
+.container-fluid {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+footer {
+    background-color: #003594;
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+footer .copyright {
+    padding: 0;
+}
+
+.text-center {
+    text-align: center !important;
+}
+
+footer .copyright a:not(:last-child) {
+  border-right: 1px solid white;
+}
+
+footer .copyright a {
+    padding-right: 10px;
+    padding-left: 10px;
+    text-decoration: none;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.slide-from-left {
+    animation: slideFromLeft 5s linear;
+}
+  
+@keyframes slideFromLeft {
+    from {
+        transform: translateX(-500%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
     }
 }

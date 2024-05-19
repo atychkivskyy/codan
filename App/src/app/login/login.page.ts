@@ -36,7 +36,7 @@ export class LoginPage implements OnInit {
     this.authService.login(this.username, this.password).subscribe(
       (response: boolean | string) => {
       if (response === true) {
-        this.router.navigate(['/graphics']);
+        this.router.navigate(['/home']);
       } else {
         this.error = "Error al iniciar sesión";
       }

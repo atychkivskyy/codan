@@ -10,17 +10,26 @@
 
 .login-page .content {
   text-align: center;
-  padding-top: 50px;
+  //padding-top: 50px;
   color: white;
+}
+
+.custom-img {
+  width: 50%; /* ajusta el ancho según sea necesario */
+  height: auto; /* ajusta la altura automáticamente para mantener la proporción */
 }
 
 .login-page .form-box {
   position: relative;
   background-color: white;
-  max-width: 400px;
-  margin: 40px auto 0;
+  max-width: 90%;
+  width: 90%;
+  height: 90%;
+  max-height: 90%;
+  margin-left: 5%;
+  margin-top: 2%;
   padding: 60px 20px;
-  border-radius: 40px;
+  border-radius: 7px;
   margin-bottom: 40px;
   overflow: hidden;
 }

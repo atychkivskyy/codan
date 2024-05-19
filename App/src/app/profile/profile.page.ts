@@ -21,7 +21,8 @@ export class ProfilePage implements OnInit {
     this.currentUser = {
       username: localStorage.getItem('username'),
       isEnabled: localStorage.getItem('isEnabled'), // Ajusta esto según cómo almacenes el estado de activación del usuario
-      isAdmin: localStorage.getItem('isAdmin') === 'true' ? 'Yes' : 'No' // Convierte el valor de isAdmin a "Yes" o "No"
+      isAdmin: localStorage.getItem('isAdmin') === 'true' ? 'Yes' : 'No', // Convierte el valor de isAdmin a "Yes" o "No"
+      createdAt: localStorage.getItem('createdAt')
     };
   }
 
