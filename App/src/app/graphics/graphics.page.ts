@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { InfluxDBService } from '../influx-db.service';
 import { AxiosServiceService } from "../axios-service.service";
+import { Subscription, interval } from 'rxjs';
 
 import * as Chart from 'chart.js';
-import { interval } from 'rxjs';
 
 @Component({
   selector: 'app-principal',
@@ -26,7 +26,8 @@ export class GraphicsPage implements OnInit, AfterViewInit {
   temperature: number = 0;
   range_temp: string ="";
   selectedSegment: string = 'temperature';
-  refreshRate: string = '5m';
+  refreshRate: number = 5000;
+  private subscription: Subscription | undefined;
 
   isAdmin: String = 'No'; //Para el menu
 
@@ -40,10 +41,20 @@ export class GraphicsPage implements OnInit, AfterViewInit {
   myChart_4: Chart | undefined;
 
   ngOnInit() {
-    interval(5000).subscribe(() => {
+    this.subscription = interval(this.refreshRate).subscribe(() => {
       this.getDataAndUpdateChart();
     });
     this.isAdmin = localStorage.getItem('isAdmin') === 'true' ? 'Yes' : 'No';
+  }
+
+  updateInterval(event: CustomEvent){
+    this.refreshRate = event.detail.value;
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
+    this.subscription = interval(this.refreshRate).subscribe(() => {
+      this.getDataAndUpdateChart();
+    });
   }
 
   ngAfterViewInit() {
@@ -145,7 +156,7 @@ export class GraphicsPage implements OnInit, AfterViewInit {
   getDataAndUpdateChart() {
     this.fields.forEach(field => {
       console.log(this.refreshRate)
-      this.influxDBService.getDataFromInfluxDB(field, this.refreshRate).subscribe({
+      this.influxDBService.getDataFromInfluxDB(field, '5m').subscribe({
         next: data => {
           this.updateChartData(data, field);
           this.updateChartData_general(data, field)

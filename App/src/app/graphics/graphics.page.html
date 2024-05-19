@@ -61,13 +61,13 @@
 
     <ion-list class="select-list">
       <ion-item>
-        <ion-select class="select-time" aria-label="Tasa refresco" placeholder="Tasa refresco" [(ngModel)]="refreshRate">
-          <ion-select-option value="5m">5 min</ion-select-option>
-          <ion-select-option value="10m">10 min</ion-select-option>
-          <ion-select-option value="20m">20 min</ion-select-option>
-        </ion-select>
+        <ion-select class="select-time select-non-placeholder" interface="popover" aria-label="Tasa de refresco" placeholder="5 sec" (ionChange)="updateInterval($event)">
+          <ion-select-option [value]="3000">3 sec</ion-select-option>
+          <ion-select-option [value]="5000" selected>5 sec</ion-select-option>
+          <ion-select-option [value]="10000">10 sec</ion-select-option>
+        </ion-select>        
       </ion-item>
-    </ion-list>     
+    </ion-list>    
 
     <ion-header>
       <ion-toolbar>

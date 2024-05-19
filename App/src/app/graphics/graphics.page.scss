@@ -74,8 +74,11 @@ h1 {
   border-radius: 5px;
 }
 
-.select-time{
+.select-time:not(.select-placeholder) {
+  /* Tus estilos aquí */
   display: block;
-  text-align: center;
-  align-items: center;
+  text-align: right;
+  align-items: right;
+  align-content: right;
+  padding-left: 40%;
 }
