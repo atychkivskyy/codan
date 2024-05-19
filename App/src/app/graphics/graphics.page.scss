@@ -44,30 +44,18 @@ h1 {
 
 .graphics-box {
   background-color: white;
-  margin: 10%;
+  margin: 3%;
   margin-top: 5%;
-  padding: 4%;
-  border-radius: 40px;
+  padding: 2%;
+  border-radius: 15px;
   align-items: center;
 }
 
 .box-title {
   text-align: center;
+  color:#333;
 }
 
-.content-container {
-  display: none;
-}
-
-.content-container.active {
+canvas  {
   display: block;
-}
-
-.image {
-  width: 100%;
-  height: auto;
-}
-
-.graphics-box canvas{
-  width: 200%;
 }

@@ -15,12 +15,13 @@
       <ion-item button href="/profile">
         <ion-label>Perfil</ion-label>
       </ion-item>
-    <ion-item button href="/login">
-      <ion-label>Cerrar sesión</ion-label>
-    </ion-item>
-  </ion-list>
+      <ion-item button href="/login">
+        <ion-label>Cerrar sesión</ion-label>
+      </ion-item>
+    </ion-list>
   </ion-content>
 </ion-menu>
+
 <div class="ion-page" id="main-content">
   <ion-header>
     <ion-toolbar>
@@ -30,13 +31,12 @@
       <ion-title>CODAN Meditions</ion-title>
     </ion-toolbar>
   </ion-header>
-  
+
   <ion-content class="login-page">
     <div class="background">
       <!-- Fondo con gradiente -->
     </div>
     <div class="content">
-
       <div class="first-container">
         <h2 class="box-title">Mediciones actuales</h2>
         <div class="canvas-container">
@@ -45,8 +45,8 @@
       </div>
       <div class="container-ini">
         <div style="padding-right: 8px;">
-          <p> En la fábrica CODAN madrid, actualmente hace {{range_temp}}.</p>
-          <p> Esperamos que tengan una buena jornada!</p>
+          <p>En la fábrica CODAN Madrid, actualmente hace {{range_temp}}.</p>
+          <p>Esperamos que tengan una buena jornada!</p>
         </div>
         <div class="temperature-box">
           <p style="font-weight: bold;">Temperatura</p>
@@ -54,42 +54,47 @@
         </div>
       </div>
 
-      <ion-header>
-        <ion-toolbar>
-          <ion-segment value="home" (ionChange)="segmentChanged($event)">
-            <ion-segment-button value="temperature">
-              <ion-icon name="heart"></ion-icon>
-              <ion-label>Temperatura</ion-label>
-            </ion-segment-button>
-            <ion-segment-button value="humidity">
-              <ion-label>Humedad</ion-label>
-            </ion-segment-button>
-            <ion-segment-button value="CO2">
-              <ion-label>CO2</ion-label>
-            </ion-segment-button>
-            <ion-segment-button value="COV">
-              <ion-label>COV</ion-label>
-            </ion-segment-button>
-          </ion-segment>
-        </ion-toolbar>
-      </ion-header>
+      <!-- Aquí cerramos la sección del contenido principal -->
+    </div>
 
-      <div class="graphics-box" *ngIf="selectedSegment == 'temperature'">
-        <h2 class="box-title">Temperatura</h2>
-        <canvas #myChart1></canvas>
-      </div>
-      <div class="graphics-box" *ngIf="selectedSegment == 'humidity'">
-        <h2 class="box-title">Humedad</h2>
-        <canvas #myChart2></canvas>
-      </div>
-      <div class="graphics-box" *ngIf="selectedSegment == 'CO2'">
-        <h2 class="box-title">CO2</h2>
-        <canvas #myChart3></canvas>
-      </div>
-      <div class="graphics-box" *ngIf="selectedSegment == 'COV'">
-        <h2 class="box-title">COV</h2>
-        <canvas #myChart4></canvas>
-      </div>
+    <ion-header>
+      <ion-toolbar>
+        <ion-segment value="temperature" (ionChange)="segmentChanged($event)">
+          <ion-segment-button value="temperature">
+            <ion-label>Temperatura</ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="humidity">
+            <ion-label>Humedad</ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="CO2">
+            <ion-label>CO2</ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="COV">
+            <ion-label>COV</ion-label>
+          </ion-segment-button>
+        </ion-segment>
+      </ion-toolbar>
+    </ion-header>
+
+    <!-- Aquí van las gráficas segmentadas -->
+    <div class="graphics-box" *ngIf="selectedSegment === 'temperature'">
+      <h2 class="box-title">Temperatura</h2>
+      <canvas #myChart1></canvas>
+    </div>
+    <div class="graphics-box" *ngIf="selectedSegment === 'humidity'">
+      <h2 class="box-title">Humedad</h2>
+      <canvas #myChart2></canvas>
+    </div>
+    <div class="graphics-box" *ngIf="selectedSegment === 'CO2'">
+      <h2 class="box-title">CO2</h2>
+      <canvas #myChart3></canvas>
+    </div>
+    <div class="graphics-box" *ngIf="selectedSegment === 'COV'">
+      <h2 class="box-title">COV</h2>
+      <canvas #myChart4></canvas>
+    </div>
+    <div hidden>
+      <canvas #myChart4 ></canvas>
     </div>
   </ion-content>
 </div>

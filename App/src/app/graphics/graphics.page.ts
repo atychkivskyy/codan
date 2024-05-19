@@ -14,6 +14,7 @@ import { interval } from 'rxjs';
   standalone: true,
   imports: [IonicModule, CommonModule, FormsModule]
 })
+
 export class GraphicsPage implements OnInit, AfterViewInit {
   @ViewChild('myChart0', { static: false }) myChart0: ElementRef | undefined;
   @ViewChild('myChart1', { static: false }) myChart1: ElementRef | undefined;
