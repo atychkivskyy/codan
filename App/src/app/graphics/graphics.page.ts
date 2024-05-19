@@ -26,6 +26,8 @@ export class GraphicsPage implements OnInit, AfterViewInit {
   range_temp: string ="";
   selectedSegment: string = "temperature";
 
+  isAdmin: String = 'No'; //Para el menu
+
   constructor(private influxDBService: InfluxDBService) { }
 
   fields = ["temperature", "humidity", "volatile", "co2"];
@@ -39,6 +41,7 @@ export class GraphicsPage implements OnInit, AfterViewInit {
     interval(5000).subscribe(() => {
       this.getDataAndUpdateChart();
     });
+    this.isAdmin = localStorage.getItem('isAdmin') === 'true' ? 'Yes' : 'No';
   }
 
   ngAfterViewInit() {
