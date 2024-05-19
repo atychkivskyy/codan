@@ -20,8 +20,10 @@ export class GraphicsPage implements OnInit, AfterViewInit {
   @ViewChild('myChart2', { static: false }) myChart2: ElementRef | undefined;
   @ViewChild('myChart3', { static: false }) myChart3: ElementRef | undefined;
   @ViewChild('myChart4', { static: false }) myChart4: ElementRef | undefined;
+
   temperature: number = 0;
   range_temp: string ="";
+  selectedSegment: string = "temperature";
 
   constructor(private influxDBService: InfluxDBService) { }
 
@@ -241,5 +243,10 @@ export class GraphicsPage implements OnInit, AfterViewInit {
     } 
 
     chart.update();
+  }
+
+  segmentChanged(event: any) {
+    console.log(event.target.value)
+    this.selectedSegment=event.target.value;
   }
 }
