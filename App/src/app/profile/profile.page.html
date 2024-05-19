@@ -54,8 +54,8 @@
         </ion-item>
         <ion-item>
           <ion-label class="isAdmin" style="margin: 10px 0;">
-            Tipo: <span [ngClass]="{'admin': currentUser.isAdmin, 'noadmin': !currentUser.isAdmin}">
-              {{ currentUser.isAdmin ? 'Administrador' : 'Empleado' }}
+            Tipo: <span [ngClass]="{'admin': currentUser.isAdmin == 'Yes', 'noadmin': currentUser.isAdmin == 'No'}">
+              {{ currentUser.isAdmin == 'Yes' ? 'Administrador' : 'Empleado' }}
             </span>
           </ion-label>
         </ion-item>
