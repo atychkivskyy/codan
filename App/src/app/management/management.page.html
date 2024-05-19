@@ -18,7 +18,7 @@
       <ion-item button href="/profile" style="--ion-background-color: #e8e5ff">
         <ion-label style="color: #000000;">Perfil</ion-label>
       </ion-item>
-      <ion-item button href="/login" style="--ion-background-color: #e8e5ff">
+      <ion-item button (click)="limpiarLocalStorage()" href="/login" style="--ion-background-color: #e8e5ff">
         <ion-label style="color: #000000;">Cerrar sesión</ion-label>
       </ion-item>
     </ion-list>
