@@ -25,6 +25,7 @@ export class GraphicsPage implements OnInit, AfterViewInit {
   temperature: number = 0;
   range_temp: string ="";
   selectedSegment: string = 'temperature';
+  refreshRate: string = '5m';
 
   isAdmin: String = 'No'; //Para el menu
 
@@ -138,7 +139,8 @@ export class GraphicsPage implements OnInit, AfterViewInit {
 
   getDataAndUpdateChart() {
     this.fields.forEach(field => {
-      this.influxDBService.getDataFromInfluxDB(field, "5m").subscribe({
+      console.log(this.refreshRate)
+      this.influxDBService.getDataFromInfluxDB(field, this.refreshRate).subscribe({
         next: data => {
           this.updateChartData(data, field);
           this.updateChartData_general(data, field)
