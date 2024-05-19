@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { InfluxDBService } from '../influx-db.service';
+import { AxiosServiceService } from "../axios-service.service";
 
 import * as Chart from 'chart.js';
 import { interval } from 'rxjs';
@@ -29,7 +30,7 @@ export class GraphicsPage implements OnInit, AfterViewInit {
 
   isAdmin: String = 'No'; //Para el menu
 
-  constructor(private influxDBService: InfluxDBService) { }
+  constructor(private influxDBService: InfluxDBService, private axiosService: AxiosServiceService) { }
 
   fields = ["temperature", "humidity", "volatile", "co2"];
   myChart: Chart | undefined;
@@ -48,6 +49,10 @@ export class GraphicsPage implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     this.createCharts();
     this.getDataAndUpdateChart();
+  }
+
+  limpiarLocalStorage() {
+    this.axiosService.clearLocalStorage(); // Llama a la función para limpiar el localStorage
   }
 
   generateLabels(sensorData: any[]): string[] {
