@@ -27,7 +27,7 @@
       <ion-buttons slot="start">
         <ion-menu-button></ion-menu-button>
       </ion-buttons>
-      <ion-title>Gráficos</ion-title>
+      <ion-title>CODAN Meditions</ion-title>
     </ion-toolbar>
   </ion-header>
   
@@ -36,19 +36,38 @@
       <!-- Fondo con gradiente -->
     </div>
     <div class="content">
-      <div class="form-box">
+
+      <div class="first-container">
+        <h2 class="box-title">Mediciones actuales</h2>
+        <div class="canvas-container">
+          <canvas #myChart0></canvas>
+        </div>
+      </div>
+      <div class="container-ini">
+        <div style="padding-right: 8px;">
+          <p> En la fábrica CODAN madrid, actualmente hace {{range_temp}}.</p>
+          <p> Esperamos que tengan una buena jornada!</p>
+        </div>
+        <div class="temperature-box">
+          <p style="font-weight: bold;">Temperatura</p>
+          <p>{{ temperature }} ºC</p>
+        </div>
+      </div>
+
+
+      <div class="graphics-box">
         <h2 class="box-title">Temperatura</h2>
         <canvas #myChart1></canvas>
       </div>
-      <div class="form-box">
+      <div class="graphics-box">
         <h2 class="box-title">Humedad</h2>
         <canvas #myChart2></canvas>
       </div>
-      <div class="form-box">
+      <div class="graphics-box">
         <h2 class="box-title">CO2</h2>
         <canvas #myChart3></canvas>
       </div>
-      <div class="form-box">
+      <div class="graphics-box">
         <h2 class="box-title">COV</h2>
         <canvas #myChart4></canvas>
       </div>
