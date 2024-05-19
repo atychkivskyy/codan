@@ -36,15 +36,15 @@ export class managementPage implements OnInit {
   public alertInputs: AlertInput[] = [
     {
       name:'username',
-      placeholder: 'username (max 8 characters)',
+      placeholder: 'Nombre de usuario (max 16 caracteres)',
       type:'text',
       attributes: {
-        maxlength: 8,
+        maxlength: 16,
       },
     },
     {
       name:'password',
-      placeholder: 'password (max 12 characters)',
+      placeholder: 'Contraseña (max 12 caracteres)',
       type:'password',
       attributes: {
         maxlength: 12,
@@ -52,7 +52,7 @@ export class managementPage implements OnInit {
     },
     {
       name:'password2',
-      placeholder: 'repeate password (max 12 characters)',
+      placeholder: 'Repetir contraseña',
       type:'password',
       attributes: {
         maxlength: 12,
@@ -67,15 +67,43 @@ export class managementPage implements OnInit {
     this.getUsers();
   }
 
+  async showAlert(header: string, message: string) {
+    const alert = await this.alertController.create({
+      header: header,
+      message: message,
+      buttons: ['OK']
+    });
+  
+    await alert.present();
+  }
+
   async openAlert() {
     const alert = await this.alertController.create({
-      header: 'Add new user',
+      header: 'Añade un nuevo usuario',
       inputs: this.alertInputs,
       buttons: [
         {
-          text: 'OK',
+          text: 'Confirmar',
           handler: (data) => {
-            this.createUser(data);
+            // Verificar que se rellenen todos los datos
+          if (data.username && data.password && data.password2) {
+            // Verificar que las contraseñas coincidan
+            if (data.password === data.password2) {
+              // Crear el usuario
+              this.createUser(data);
+            } else {
+              // Contraseñas no coinciden, mostrar mensaje de error
+              this.showAlert('Error', 'Las contraseñas no coinciden');
+            }
+          } else {
+            // Faltan datos, mostrar mensaje de error
+            this.showAlert('Error', 'Por favor, rellene todos los campos');
+          }
+          }
+        },
+        {
+          text: 'Cancelar',
+          handler: () => {
           }
         }
       ]
@@ -86,10 +114,10 @@ export class managementPage implements OnInit {
 
   async deleteAlert(id:number) {
     const alert = await this.alertController.create({
-      header: 'Are you sure you want to delete this user?',
+      header: '¿De verdad quieres eliminar este usuario?',
       buttons: [
         {
-          text: 'Yes',
+          text: 'Confirmar',
           handler: () => {
             this.deleteUser(id);
           }
@@ -122,6 +150,7 @@ export class managementPage implements OnInit {
 
   }
 
+  
   
   getUsers() {
     this.authService.getUsers()
