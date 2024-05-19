@@ -245,6 +245,19 @@
   z-index: -1; /* Para colocar detrás del contenido */
 }
 
+.header-general{
+  --ion-background-color: linear-gradient(to left,  #2e77e4 1%, #7a33cc);
+}
+
+.ion-padding{
+  --ion-background-color: linear-gradient(to bottom, #5137af 10%, #2e77e4);
+}
+.ion-item{
+  --ion-background-color: transparent;
+  background-color: transparent;
+  color: white;
+}
+
 html {
   /* 
    * For more information on dynamic font scaling, visit the documentation:
