@@ -23,6 +23,18 @@
           <representation mediaType="application/json"/>
         </response>
       </method>
+      <method name="GET" id="get-data">
+        <request>
+          <param name="sensor_id" style="query" type="xs:int"/>
+          <param name="temperature" style="query" type="xs:float"/>
+          <param name="humidity" style="query" type="xs:float"/>
+          <param name="co2" style="query" type="xs:float"/>
+          <param name="volatile" style="query" type="xs:float"/>
+        </request>
+        <response status="200">
+          <representation mediaType="application/json"/>
+        </response>
+      </method>
     </resource>
 
   </resources>

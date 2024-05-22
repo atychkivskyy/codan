@@ -7,19 +7,27 @@ exports.test = (req, res) => {
 };
 
 exports.retrieveData = async (req, res, next) => {
+    let data = {};
+    if (req.method === 'POST') {
+        data = req.body;
+    } else if (req.method === 'GET') {
+        data = req.query;
+    }
+
     let timestamp = new Date();
     let temperature = {
-        sensor_id: req.body.sensor_id, temperature: req.body.temperature, time: timestamp
-    }
+        sensor_id: data.sensor_id, temperature: data.temperature, time: timestamp
+    };
     let humidity = {
-        sensor_id: req.body.sensor_id, humidity: req.body.humidity, time: timestamp
-    }
+        sensor_id: data.sensor_id, humidity: data.humidity, time: timestamp
+    };
     let co2 = {
-        sensor_id: req.body.sensor_id, co2: req.body.co2, time: timestamp
-    }
+        sensor_id: data.sensor_id, co2: data.co2, time: timestamp
+    };
     let volatile = {
-        sensor_id: req.body.sensor_id, volatile: req.body.volatile, time: timestamp
-    }
+        sensor_id: data.sensor_id, volatile: data.volatile, time: timestamp
+    };
+
     mqttClient.publish('sensor/temperature', JSON.stringify(temperature), (error) => {
         if (error) {
             console.error('Failed to publish message:', error);
@@ -40,6 +48,7 @@ exports.retrieveData = async (req, res, next) => {
             console.error('Failed to publish message:', error);
         }
     });
+
     return next();
 }
 

@@ -33,9 +33,18 @@ function generateRandomData(sensorId) {
 function startSensorEmulator(sensorId) {
     setInterval(() => {
         const data = generateRandomData(sensorId);
-        axios.post(url, data)
-            .then(() => console.log(`Sensor ${sensorId} data sent`))
-            .catch(error => console.error(`Error from sensor ${sensorId}:`, error.message));
+        const method = Math.random() < 0.5 ? 'POST' : 'GET';  // Alternar entre POST y GET
+
+        if (method === 'POST') {
+            axios.post(url, data)
+                .then(() => console.log(`Sensor ${sensorId} data sent via POST`))
+                .catch(error => console.error(`Error from sensor ${sensorId} via POST:`, error.message));
+        } else {
+            const queryString = new URLSearchParams(data).toString();
+            axios.get(`${url}?${queryString}`)
+                .then(() => console.log(`Sensor ${sensorId} data sent via GET`))
+                .catch(error => console.error(`Error from sensor ${sensorId} via GET:`, error.message));
+        }
     }, INTERVAL);
 }
 
