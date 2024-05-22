@@ -6,7 +6,6 @@
 
   <resources base="http://10.100.0.101:8826/api">
 
-    <!-- User Management Resources -->
     <resource path="/register">
       <method name="POST">
         <doc title="Register a new user"/>
@@ -63,7 +62,6 @@
       </method>
     </resource>
 
-    <!-- InfluxDB Metrics Querying -->
     <resource path="/metrics">
       <method name="GET">
         <doc title="Query InfluxDB metrics"/>
